@@ -11,8 +11,8 @@ public class Hallway {
     public TETile[] vertical;
     public int xInitial; /** the x coordinate of the middle of the lefter object */
     public int yInitial; /** the y coordinate of the middle of the downer object */
-    private int xFinal;
-    private int yFinal;
+    public int xFinal;
+    public int yFinal;
     public int xLength;
     public int yLength;
 
@@ -39,8 +39,8 @@ public class Hallway {
         yInitial = Math.min(A.center[1], B.center[1]);
         xFinal = Math.max(A.center[0], B.center[0]);
         yFinal = Math.max(A.center[1], B.center[1]);
-        xLength = xFinal-xInitial;
-        yLength = yFinal-yLength;
+        xLength = xFinal-xInitial+1;
+        yLength = yFinal-yInitial+1;
         this.type = Tileset.FLOOR;
         horizontal = new TETile[xLength];
         for (int i = 0; i < xLength; i++) {

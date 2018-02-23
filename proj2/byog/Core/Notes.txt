@@ -6,11 +6,27 @@
     communication between creators.
 
 -------------------------------------------------------
+MJ 02/23/18 0523hrs
+1) Fixed isOccupied() function to detect if room is placed out of bounds
+
+2) Added insertHall function and corresponding tests
+    InsertRoom now does nothing except insert room in location.
+    Added variable prevprev (used in insertHall method) which tracks 2nd last room created.
+    InsertHall is seperate call following insertRoom.
+
+3) Modified create room to only override tile if tile is NOTHING.
+4) Fixed bug with random paths in insertHall through adding different case considerations
+5) Created generateWorld method and tests
+6) Created wallify (and corresponding helper method) method to improve aesthetics
+
+Looks pretty good rn tbh
+
+
 
 Mao 02/22/18 ~7pm
 
 Exceptions to catch/throw:
- 1) Creating Room with width/height <=2 (just walls)
+1) Creating Room with width/height <=2 (just walls)
 
 1. Assigned variable name to longitude instead of long because long is primitive type
 
