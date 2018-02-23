@@ -4,7 +4,7 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 
 public class Game {
-    public TERenderer ter = new TERenderer();
+    TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 50;
     public static final int HEIGHT = 50;
@@ -42,5 +42,17 @@ public class Game {
         myWorld.generateWorld(70, 20);
         TETile[][] finalWorldFrame = myWorld.world;
         return finalWorldFrame;
+    }
+
+    public static void basicTest() {
+        Game newgame = new Game();
+        newgame.ter.initialize(50, 50);
+
+        newgame.ter.renderFrame(newgame.playWithInputString("N1219s"));
+        //newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
+    }
+
+    public static void main(String[] args) {
+        basicTest(); // Works swell.
     }
 }

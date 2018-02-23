@@ -35,9 +35,9 @@ Result: Entire world is enclosed in STDrawing
 - Unified comment styles (not in autograder): start with lowercase, don't wrap one-line comments
 - Room.buildRoom: "'room' hides field"
     Solution: renamed returned room to myRoom;
+- Made long if statements two lines
 *Making Room.room non-public means TestRoom, TestWorld can't access and won't compile,
 so I changed their file names.
-
 -------------------------------------------------------
 MJ 02/23/18 0523hrs
 

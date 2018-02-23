@@ -96,7 +96,8 @@ public class World {
     public void insertHall(Room A, Room B) {
         Hallway hallway = new Hallway(A, B);
         int orientation = RandomUtils.uniform(random, 0, 2);
-        if ((A.latitude < B.latitude && A.longitude > B.longitude) || (B.latitude < A.latitude && B.longitude > A.latitude)) {
+        if ((A.latitude < B.latitude && A.longitude > B.longitude)
+                || (B.latitude < A.latitude && B.longitude > A.latitude)) {
             orientation = orientation = orientation + 2;
         }
         /** Decide whether to build horizontally or vertically first randomly */
@@ -136,10 +137,12 @@ public class World {
     // Helper method for wallify function to check if a location bounds a floor tile
     private boolean shouldBeWall(int x, int y) {
         if (world[x][y] == Tileset.NOTHING) {
-            if (x + 1 != size && (world[x + 1][y] == Tileset.FLOOR) || (world[Math.abs(x - 1)][y] == Tileset.FLOOR)) {
+            if (x + 1 != size && (world[x + 1][y] == Tileset.FLOOR)
+                    || (world[Math.abs(x - 1)][y] == Tileset.FLOOR)) {
                 return true;
             }
-            if (y + 1 != size && (world[x][y + 1] == Tileset.FLOOR) || (world[x][Math.abs(y - 1)] == Tileset.FLOOR)) {
+            if (y + 1 != size && (world[x][y + 1] == Tileset.FLOOR)
+                    || (world[x][Math.abs(y - 1)] == Tileset.FLOOR)) {
                 return true;
             }
         }
