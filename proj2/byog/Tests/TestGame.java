@@ -8,6 +8,7 @@ public class TestGame {
         newgame.ter.initialize(100,100);
 
         newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
+        newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
     }
 
     public static void main(String[] args) {

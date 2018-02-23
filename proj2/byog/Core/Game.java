@@ -35,7 +35,7 @@ public class Game {
         long seed = Long.parseLong(Character.toString(input.charAt(1)));
         int i = 2;
         while (input.charAt(i) != 's') {
-            seed = seed + Long.parseLong(Character.toString(input.charAt(i)));
+            seed = 10*seed + Long.parseLong(Character.toString(input.charAt(i)));
             i++;
         }
         World myWorld = new World(80, seed);

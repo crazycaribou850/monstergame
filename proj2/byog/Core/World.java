@@ -98,8 +98,7 @@ public class World {
     // 2 orientations given for each case for increased entropy //
     public void insertHall(Room A, Room B) {
         Hallway hallway = new Hallway(A, B);
-        Random r = new Random();
-        int orientation = RandomUtils.uniform(r, 0, 2);
+        int orientation = RandomUtils.uniform(random, 0, 2);
         if ((A.latitude < B.latitude && A.longitude > B.longitude) || (B.latitude < A.latitude && B.longitude > A.latitude)) {
             orientation = orientation = orientation + 2;
         }
