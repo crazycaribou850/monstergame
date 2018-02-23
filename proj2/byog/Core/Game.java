@@ -34,7 +34,7 @@ public class Game {
         // drawn if the same inputs had been given to playWithKeyboard().
         long seed = Long.parseLong(Character.toString(input.charAt(1)));
         int i = 2;
-        while (input.charAt(i) != 'S') {
+        while (input.charAt(i) != 's') {
             seed = seed + Long.parseLong(Character.toString(input.charAt(i)));
             i++;
         }

@@ -19,7 +19,14 @@ MJ 02/23/18 0523hrs
 5) Created generateWorld method and tests
 6) Created wallify (and corresponding helper method) method to improve aesthetics
 
-Looks pretty good rn tbh
+0650hrs
+7) Random() object is now an instance variable. Our world constructor takes in a seed
+   that is passed in to the random object so that all our random generations will be
+   pseudorandom.
+8) Started Game.java and implemented playWithInputString method to start game
+
+
+Looks pretty good rn tbh imma submit to autograder.
 
 
 
