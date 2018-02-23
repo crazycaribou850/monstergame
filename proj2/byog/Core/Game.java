@@ -29,13 +29,13 @@ public class Game {
      * @return the 2D TETile[][] representing the state of the world
      */
     public TETile[][] playWithInputString(String input) {
-        // TODO: Fill out this method to run the game using the input passed in,
+        // Run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
         long seed = Long.parseLong(Character.toString(input.charAt(1)));
         int i = 2;
         while (input.charAt(i) != 's') {
-            seed = 10*seed + Long.parseLong(Character.toString(input.charAt(i)));
+            seed = 10 * seed + Long.parseLong(Character.toString(input.charAt(i)));
             i++;
         }
         World myWorld = new World(WIDTH, seed);

@@ -1,22 +1,18 @@
 package byog.Core;
 
-import byog.Core.Hallway;
-import byog.Core.Room;
-import byog.Core.RandomUtils;
-
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.util.Random;
 
 public class World {
-    public TETile[][] world;
-    public int size;
+    TETile[][] world;
+    int size;
 
     private Room prev; // Previously inserted room
     private Room prevprev; //Previously Previously inserted room
     private int failures; // After # consecutive failures, stop inserting Rooms
-    public Random random;
+    Random random;
 
     public World(int s, long seed) {
         world = buildWorld(s);
@@ -118,9 +114,8 @@ public class World {
             for (int i = hallway.xInitial; i <= hallway.xFinal; i++) {
                 world[i][hallway.yFinal] = hallway.horizontal[i - hallway.xInitial];
             }
-        }
-        // Account for special cases where A is XiYf and B is XfYi or vice versa
-        else if (orientation == 3) {
+        } else if (orientation == 3) {
+            // Account for special cases where A is XiYf and B is XfYi or vice versa
             for (int i = hallway.yInitial; i <= hallway.yFinal; i++) {
                 world[hallway.xFinal][i] = hallway.vertical[i - hallway.yInitial];
             }

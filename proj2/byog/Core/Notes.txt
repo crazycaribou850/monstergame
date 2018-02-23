@@ -26,6 +26,17 @@ Future goals?
 - playWithInputString's new World size to WIDTH, so world size
     is always Game's WIDTH
 Result: Entire world is enclosed in STDrawing
+2) Style stuff
+- Deleted Test.java in Core
+- Deleted all unused imports
+- Fixed commas not followed by whitespace ***MJ START DOING THIS
+- Fixed variables starting with upper-case letter
+- *Fixed "variables may not be public"
+- Unified comment styles (not in autograder): start with lowercase, don't wrap one-line comments
+- Room.buildRoom: "'room' hides field"
+    Solution: renamed returned room to myRoom;
+*Making Room.room non-public means TestRoom, TestWorld can't access and won't compile,
+so I changed their file names.
 
 -------------------------------------------------------
 MJ 02/23/18 0523hrs

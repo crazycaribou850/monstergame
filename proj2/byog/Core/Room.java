@@ -4,33 +4,26 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 public class Room {
-    public TETile[][] room;
-    public TETile Ptype;
-    /**
-     * Tile type for room's perimeter (default: WALL)
-     */
-    public TETile type;
-    /**
-     * Tile type for room's floors (default: FLOOR)
-     */
+    TETile[][] room;
 
-    public int width;
-    public int height;
+    /** Tile type for room's perimeter (default: WALL) */
+    TETile pType;
 
-    /**
-     * Bottom left
-     */
-    public int latitude;
-    public int longitude;
+    /** Tile type for room's floors (default: FLOOR) */
+    TETile type;
 
-    public int[] center;
+    int width;
+    int height;
 
-    /**
-     * center[0], center[1] = latitude, longitude of center
-     */
+    /** bottom left */
+    int latitude;
+    int longitude;
+
+    /** center[0], center[1] = latitude, longitude of center */
+    int[] center;
 
     public Room(int w, int h, int lat, int lng) {
-        Ptype = Tileset.WALL;
+        pType = Tileset.WALL;
         type = Tileset.FLOOR;
 
         width = w;
@@ -47,27 +40,27 @@ public class Room {
     }
 
     private TETile[][] buildRoom(int w, int h) {
-        TETile[][] room = new TETile[w][h];
+        TETile[][] myRoom = new TETile[w][h];
 
         for (int x = 0; x < w; x += 1) {
             for (int y = 1; y < h; y += 1) {
-                room[x][y] = this.type;
+                myRoom[x][y] = this.type;
             }
         }
 
         /** Top & Bottom Walls */
         for (int x = 0; x < w; x += 1) {
-            room[x][0] = this.Ptype;
-            room[x][h - 1] = this.Ptype;
+            myRoom[x][0] = this.pType;
+            myRoom[x][h - 1] = this.pType;
         }
 
         /** Left & Right Walls */
         for (int y = 0; y < h; y += 1) {
-            room[0][y] = this.Ptype;
-            room[w - 1][y] = this.Ptype;
+            myRoom[0][y] = this.pType;
+            myRoom[w - 1][y] = this.pType;
         }
 
-        return room;
+        return myRoom;
     }
 }
 

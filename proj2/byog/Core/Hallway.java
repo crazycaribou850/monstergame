@@ -1,32 +1,25 @@
 package byog.Core;
 
 import byog.TileEngine.TETile;
-import byog.TileEngine.TERenderer;
 import byog.TileEngine.Tileset;
 
 public class Hallway {
-    /**
-     * Always plots left and upwards
-     */
-    public TETile type;
-    public TETile[] horizontal;
-    public TETile[] vertical;
-    public int xInitial;
-    /**
-     * the x coordinate of the middle of the lefter object
-     */
-    public int yInitial;
-    /**
-     * the y coordinate of the middle of the downer object
-     */
-    public int xFinal;
-    public int yFinal;
-    public int xLength;
-    public int yLength;
+    /** always plots left and upwards */
+    TETile type;
+    TETile[] horizontal;
+    TETile[] vertical;
 
-    /**
-     * Builds a hallway to be placed at location
-     */
+    /** the x coordinate of the middle of the lefter object */
+    int xInitial;
+    /** the y coordinate of the middle of the downer object */
+    int yInitial;
+
+    int xFinal;
+    int yFinal;
+    int xLength;
+    int yLength;
+
+    /** builds a hallway to be placed at location */
     public Hallway(Room A, Room B, TETile type) {
         xInitial = Math.min(A.center[0], B.center[0]);
         yInitial = Math.min(A.center[1], B.center[1]);
