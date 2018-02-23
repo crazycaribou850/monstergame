@@ -13,14 +13,14 @@ public class TestWorld {
         TERenderer ter = new TERenderer();
         ter.initialize(30, 30);
 
-        World myWorld = new World(30);
+        World myWorld = new World(30, 999);
         Room randRoom = myWorld.createRoom();
 
         ter.renderFrame(randRoom.room);
     }
 
     public void testIsOccupied() {
-        World myWorld = new World(30);
+        World myWorld = new World(30, 999);
         assertFalse(myWorld.isOccupied(0, 0, 30, 30));
 
         Room myRoom = new Room(5, 5, 0, 0);
@@ -37,7 +37,7 @@ public class TestWorld {
     public static void testEmptyWorld() {
         TERenderer ter = new TERenderer();
         ter.initialize(30, 30);
-        World myWorld = new World(30);
+        World myWorld = new World(30, 999);
         ter.renderFrame(myWorld.world);
     }
 
@@ -45,7 +45,7 @@ public class TestWorld {
         TERenderer ter = new TERenderer();
         ter.initialize(10, 10);
 
-        World myWorld = new World(5);
+        World myWorld = new World(5, 999);
         Room myRoom = new Room(3, 3, 2, 2);
         myWorld.insertRoom(myRoom);
 
@@ -56,7 +56,7 @@ public class TestWorld {
         TERenderer ter = new TERenderer();
         ter.initialize(20, 20);
 
-        World myWorld = new World(20);
+        World myWorld = new World(20, 999);
         Room RoomOne = new Room(3, 3, 2, 2);
         myWorld.insertRoom(RoomOne);
 
@@ -74,7 +74,7 @@ public class TestWorld {
         TERenderer ter = new TERenderer();
         ter.initialize(20, 20);
 
-        World myWorld = new World(20);
+        World myWorld = new World(20, 999);
         Room RoomOne = new Room(3, 3, 2, 2);
         myWorld.insertRoom(RoomOne);
 
@@ -92,7 +92,7 @@ public class TestWorld {
         TERenderer ter = new TERenderer();
         ter.initialize(30, 30);
 
-        World myWorld = new World(30);
+        World myWorld = new World(30, 999);
         Room RoomOne = new Room(3, 3, 1, 1);
         myWorld.insertRoom(RoomOne);
 
@@ -110,7 +110,7 @@ public class TestWorld {
         TERenderer ter = new TERenderer();
         ter.initialize(30, 30);
 
-        World myWorld = new World(30);
+        World myWorld = new World(30, 999);
         myWorld.generateWorld(20, 10);
 
         ter.renderFrame(myWorld.world);
@@ -121,7 +121,7 @@ public class TestWorld {
         TERenderer ter = new TERenderer();
         ter.initialize(30, 30);
 
-        World myWorld = new World(60);
+        World myWorld = new World(60, 999);
         myWorld.generateWorld(50, 20);
         myWorld.wallify();
 

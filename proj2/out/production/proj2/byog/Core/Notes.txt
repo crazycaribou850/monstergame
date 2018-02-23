@@ -6,7 +6,7 @@
     communication between creators.
 
 -------------------------------------------------------
-MJ 02/23/18 0234hrs
+MJ 02/23/18 0523hrs
 1) Fixed isOccupied() function to detect if room is placed out of bounds
 
 2) Added insertHall function and corresponding tests

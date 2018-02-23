@@ -5,17 +5,29 @@ import byog.TileEngine.Tileset;
 
 public class Room {
     public TETile[][] room;
-    public TETile Ptype; /** Tile type for room's perimeter (default: WALL) */
-    public TETile type; /** Tile type for room's floors (default: FLOOR) */
+    public TETile Ptype;
+    /**
+     * Tile type for room's perimeter (default: WALL)
+     */
+    public TETile type;
+    /**
+     * Tile type for room's floors (default: FLOOR)
+     */
 
     public int width;
     public int height;
 
-    /** Bottom left */
+    /**
+     * Bottom left
+     */
     public int latitude;
     public int longitude;
 
-    public int[] center; /** center[0], center[1] = latitude, longitude of center */
+    public int[] center;
+
+    /**
+     * center[0], center[1] = latitude, longitude of center
+     */
 
     public Room(int w, int h, int lat, int lng) {
         Ptype = Tileset.WALL;
@@ -28,8 +40,8 @@ public class Room {
         longitude = lng;
 
         center = new int[2];
-        center[0] = lat + w/2;
-        center[1] = lng + h/2;
+        center[0] = lat + w / 2;
+        center[1] = lng + h / 2;
 
         room = buildRoom(w, h);
     }

@@ -4,10 +4,10 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 
 public class Game {
-    TERenderer ter = new TERenderer();
+    public TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
-    public static final int HEIGHT = 30;
+    public static final int HEIGHT = 80;
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -24,6 +24,7 @@ public class Game {
      * world. However, the behavior is slightly different. After playing with "n123sss:q", the game
      * should save, and thus if we then called playWithInputString with the string "l", we'd expect
      * to get the exact same world back again, since this corresponds to loading the saved game.
+     *
      * @param input the input string to feed to your program
      * @return the 2D TETile[][] representing the state of the world
      */
@@ -31,8 +32,15 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
-
-        TETile[][] finalWorldFrame = null;
+        long seed = Long.parseLong(Character.toString(input.charAt(1)));
+        int i = 2;
+        while (input.charAt(i) != 'S') {
+            seed = seed + Long.parseLong(Character.toString(input.charAt(i)));
+            i++;
+        }
+        World myWorld = new World(80, seed);
+        myWorld.generateWorld(70, 20);
+        TETile[][] finalWorldFrame = myWorld.world;
         return finalWorldFrame;
     }
 }
