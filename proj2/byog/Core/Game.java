@@ -6,8 +6,8 @@ import byog.TileEngine.TETile;
 public class Game {
     public TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
-    public static final int WIDTH = 80;
-    public static final int HEIGHT = 80;
+    public static final int WIDTH = 50;
+    public static final int HEIGHT = 50;
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -38,7 +38,7 @@ public class Game {
             seed = 10*seed + Long.parseLong(Character.toString(input.charAt(i)));
             i++;
         }
-        World myWorld = new World(80, seed);
+        World myWorld = new World(WIDTH, seed);
         myWorld.generateWorld(70, 20);
         TETile[][] finalWorldFrame = myWorld.world;
         return finalWorldFrame;

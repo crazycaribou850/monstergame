@@ -128,6 +128,22 @@ public class TestWorld {
         ter.renderFrame(myWorld.world);
     }
 
+    public static void testRoomAtEdge() {
+        TERenderer ter = new TERenderer();
+        ter.initialize(30, 30);
+
+        World myWorld = new World(30, 999);
+        Room myRoom = new Room(5, 5, 25, 5);
+
+        /** Right Wall goes past edge of world, should not show up */
+        Room badRoom = new Room(5, 5, 26, 20);
+
+        myWorld.insertRoom(myRoom);
+        myWorld.insertRoom(badRoom);
+
+        ter.renderFrame(myWorld.world);
+    }
+
     public static void main(String[] args) {
         //testCreateRoom(); //Passes
         //testEmptyWorld(); //Passes
@@ -135,7 +151,8 @@ public class TestWorld {
         //testInsertMultipleRooms(); //Passes
         //testInsertHallway(); //Passes
         //testBuildOverHallway(); //Passes
-        testGenerateWorld(); //Buggy
+        //testGenerateWorld(); //Buggy
         //testWallified();
+        //testRoomAtEdge(); //Passes
     }
 }

@@ -6,7 +6,31 @@
     communication between creators.
 
 -------------------------------------------------------
+Mao 02/23/18 10AM
+
+Feedback for MJ's prev push:
+I really like World.wallify. It'll help us make the halls and
+rooms different tile types in the future.
+Qs:
+- Why need attempts and maxfailure?
+
+Future goals?
+- Eliminate prevprev. It's unsexy.
+- WATER/FIRE WALLS AND GRASS FLOORS WOO
+- Edge cases
+
+1) Rooms were cut off when I ran TestGame so changed:
+- initialize's w/h parameter in TestGame from 80 to 50
+    so STDraw could fit on screen
+- Game.java's WIDTH/HEIGHT final variables to 50
+- playWithInputString's new World size to WIDTH, so world size
+    is always Game's WIDTH
+Result:
+2)
+
+-------------------------------------------------------
 MJ 02/23/18 0523hrs
+
 1) Fixed isOccupied() function to detect if room is placed out of bounds
 
 2) Added insertHall function and corresponding tests
@@ -29,7 +53,7 @@ MJ 02/23/18 0523hrs
 Looks pretty good rn tbh imma submit to autograder.
 
 
-
+-------------------------------------------------------
 Mao 02/22/18 ~7pm
 
 Exceptions to catch/throw:

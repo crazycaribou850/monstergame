@@ -14,7 +14,7 @@ public class World {
     public int size;
 
     private Room prev; // Previously inserted room
-    private Room prevprev; //Previously Preivously inserted room
+    private Room prevprev; //Previously Previously inserted room
     private int failures; // After # consecutive failures, stop inserting Rooms
     public Random random;
 
@@ -81,9 +81,10 @@ public class World {
     }
 
     public boolean isOccupied(int startX, int startY, int width, int height) {
+        /* First check if the space requested is within the bounds of the map */
         if (((startX + width) > size) || ((startY + height) > size)) {
             return true;
-        } /* First check if the space requested is within the bounds of the map */
+        }
         for (int x = startX; x < startX + width; x += 1) {
             for (int y = startY; y < startY + height; y += 1) {
                 if (world[x][y] == Tileset.WALL) {
