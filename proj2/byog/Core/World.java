@@ -170,6 +170,8 @@ public class World {
             attempts = attempts - 1;
         }
         wallify(); //Uncomment to turn on wallify//
+        //p = new Player();
+        //p.insert(world);
         return;
     }
 
