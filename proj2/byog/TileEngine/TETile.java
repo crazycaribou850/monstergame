@@ -25,8 +25,9 @@ public class TETile {
     private final char character; // Do not rename character or the autograder will break.
     private final Color textColor;
     private final Color backgroundColor;
-    private final String description;
     private final String filepath;
+
+    public String description; // Made public and mutable for HUD
 
     /**
      * Full constructor for TETile objects.

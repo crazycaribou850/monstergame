@@ -6,19 +6,53 @@
     communication between creators.
 
 -------------------------------------------------------
-MJ 03/02/18 0131hrs
+Mao 03/02/18 Morning/Noon
+
+- Ans to MJ in parenthesis to his notes
+
+- HUD section added in Game.java
+*Run TestHUD.java to see sample
+
+Notes: 
+1) Game.readMouse4Tile is static so don't need to create Game instance to read Tile Type in myWorld 
+This is for testing purposes right now, can change to non-static later.
+2) made TETile.description PUBLIC & MUTABLE (ie private final -> public) so can access/edit for HUD
+3) Std.MouseX/Y() returns a double (3 decimals), so cast into (int) = rounds down to whole int.
+
+To deal with:
+	1) Once mouse goes off screen = ArrayIndexOutofBoundsException
+
+MJ 03/02/18 0342hrs
 
 Game.java:
 - Implemented start screen and user input functionality
     - To figure out: Is there a way to close the window when Quit is pressed?
+        (Mao: no because StDraw only reads char's so can't read ESC)
     - Otherwise to discuss: - how should we implement the quit function (Aesthetic concerns)
     - Implemented continuous loop input and movement capabilities.
+        (Mao: COOL! If doing Pac-Man, figure out how to slow down loop so guy can't move so fast?)
+
         Frames in include StartScreen, GameOverScreen, RequestSeed and startGame screen (with movement)
 
         Try it out by running the main of TestGame.java!
+        (Mao: COOL!)
+Follow ups: 1) Discuss direction of game: what shall we do with this beautiful thing
+            2) Implement mouse pointer stuff (Mao: see HUD)
+            3) Implement Heads Up Display (HUD) (Mao: almost there)
+            4) Implement load save game functionality
+            5) Ambition points stuff!! (Linked to 1) (Mao: YAS)
+            6) Aesthetics?
 
+Mao 03/01/18 Evening
 
+ Creating Player Class:
+ - Constructor that takes in type: takes in Tileset? TETile? String?
+ insertPlayer()
+ - uses myWorld's Random object
+ - instead of randX and randY, only randX while Y increments from 0 so
+ more likely to have player start at bottom (for aesthetics)
 
+-------------------------------------------------------
 
 Mao 02/23/18 10AM
 
@@ -108,11 +142,3 @@ Exceptions to catch/throw:
     - eliminates need for Exception 1) ?
 
  -------------------------------------------------------
- Mao 03/01/18 Evening
-
- Creating Player Class:
- - Constructor that takes in type: takes in Tileset? TETile? String?
- insertPlayer()
- - uses myWorld's Random object
- - instead of randX and randY, only randX while Y increments from 0 so
- more likely to have player start at bottom (for aesthetics)

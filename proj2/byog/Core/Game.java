@@ -151,6 +151,19 @@ public class Game {
             }
         }
     }
+
+    /************************ HUD **********************/
+
+    public static String readMouse4Tile(World myWorld) {
+        int x = (int) StdDraw.mouseX(); //Casting rounds down
+        int y = (int) StdDraw.mouseY();
+        String type =  myWorld.world[x][y].description;
+        return type;
+    }
+
+    /***************************************************/
+
+
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
