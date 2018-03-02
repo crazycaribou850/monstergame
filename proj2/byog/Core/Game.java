@@ -83,7 +83,7 @@ public class Game {
         World myWorld = new World(WIDTH, seed);
         myWorld.generateWorld(70, 20);
         TETile[][] worldFrame = myWorld.world;
-        ter.initialize(WIDTH, HEIGHT, 2, 2);
+        ter.initialize(WIDTH, HEIGHT, 1, 1;u);
         Player p = new Player();
         p.insertPlayer(myWorld);
         ter.renderFrame(worldFrame);

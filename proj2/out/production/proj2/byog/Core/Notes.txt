@@ -19,8 +19,10 @@ This is for testing purposes right now, can change to non-static later.
 2) made TETile.description PUBLIC & MUTABLE (ie private final -> public) so can access/edit for HUD
 3) Std.MouseX/Y() returns a double (3 decimals), so cast into (int) = rounds down to whole int.
 
-To deal with:
-	1) Once mouse goes off screen = ArrayIndexOutofBoundsException
+To-do:
+	1) Catch exception: Once mouse goes off screen = ArrayIndexOutofBounds
+	2) Put readMouse4Tile into Game's keyboard input loop
+
 
 MJ 03/02/18 0342hrs
 
