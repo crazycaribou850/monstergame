@@ -6,6 +6,20 @@
     communication between creators.
 
 -------------------------------------------------------
+MJ 03/02/18 0131hrs
+
+Game.java:
+- Implemented start screen and user input functionality
+    - To figure out: Is there a way to close the window when Quit is pressed?
+    - Otherwise to discuss: - how should we implement the quit function (Aesthetic concerns)
+    - Implemented continuous loop input and movement capabilities.
+        Frames in include StartScreen, GameOverScreen, RequestSeed and startGame screen (with movement)
+
+        Try it out by running the main of TestGame.java!
+
+
+
+
 Mao 02/23/18 10AM
 
 Feedback for MJ's prev push:
@@ -101,4 +115,4 @@ Exceptions to catch/throw:
  insertPlayer()
  - uses myWorld's Random object
  - instead of randX and randY, only randX while Y increments from 0 so
- more likely to have player start at bottom.
+ more likely to have player start at bottom (for aesthetics)

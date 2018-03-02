@@ -11,7 +11,20 @@ public class TestGame {
         //newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
     }
 
+    public static void drawStartFrameTest() {
+        Game newgame = new Game();
+        newgame.drawStartFrame();
+        //newgame.drawGameOverFrame();
+    }
+
+    public static void startScreenTest() {
+        Game newgame = new Game();
+        newgame.startScreen();
+    }
+
     public static void main(String[] args) {
-        basicTest(); // Works swell.
+        //* basicTest(); // Works swell.
+        //* drawStartFrameTest(); //Works swell
+        startScreenTest();
     }
 }
