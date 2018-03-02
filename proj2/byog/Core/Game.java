@@ -83,7 +83,7 @@ public class Game {
         World myWorld = new World(WIDTH, seed);
         myWorld.generateWorld(70, 20);
         TETile[][] worldFrame = myWorld.world;
-        ter.initialize(WIDTH, HEIGHT, 1, 1;u);
+        ter.initialize(WIDTH, HEIGHT, 1, 1);
         Player p = new Player();
         p.insertPlayer(myWorld);
         ter.renderFrame(worldFrame);
@@ -97,6 +97,8 @@ public class Game {
             continue;
         }
     }
+
+    //Test
 
     void controller(char key, World world, Player player) {
         if (key == 'W' || key == 'w') {
