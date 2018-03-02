@@ -89,6 +89,7 @@ public class Game {
         ter.renderFrame(worldFrame);
         while (true) {
             if (!StdDraw.hasNextKeyTyped()) {
+                System.out.print(readMouse4Tile(myWorld));
                 continue;
             }
             char key = StdDraw.nextKeyTyped();
