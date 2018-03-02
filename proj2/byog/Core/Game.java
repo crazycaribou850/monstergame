@@ -83,12 +83,13 @@ public class Game {
         World myWorld = new World(WIDTH, seed);
         myWorld.generateWorld(70, 20);
         TETile[][] worldFrame = myWorld.world;
-        ter.initialize(WIDTH, HEIGHT, 1, 1;u);
+        ter.initialize(WIDTH, HEIGHT, 1, 1);
         Player p = new Player();
         p.insertPlayer(myWorld);
         ter.renderFrame(worldFrame);
         while (true) {
             if (!StdDraw.hasNextKeyTyped()) {
+                System.out.print(readMouse4Tile(myWorld));
                 continue;
             }
             char key = StdDraw.nextKeyTyped();
