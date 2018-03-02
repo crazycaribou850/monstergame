@@ -149,7 +149,7 @@ public class TestWorld {
         //testInsertHallway(); //Passes
         //testBuildOverHallway(); //Passes
         //testGenerateWorld(); //Buggy
-        testWallified();
+        //testWallified();
         //testRoomAtEdge(); //Passes
     }
 }

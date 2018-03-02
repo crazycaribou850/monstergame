@@ -94,3 +94,11 @@ Exceptions to catch/throw:
     - eliminates need for Exception 1) ?
 
  -------------------------------------------------------
+ Mao 03/01/18 Evening
+
+ Creating Player Class:
+ - Constructor that takes in type: takes in Tileset? TETile? String?
+ insertPlayer()
+ - uses myWorld's Random object
+ - instead of randX and randY, only randX while Y increments from 0 so
+ more likely to have player start at bottom.
