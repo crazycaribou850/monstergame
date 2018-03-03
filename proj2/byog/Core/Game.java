@@ -83,23 +83,45 @@ public class Game {
         World myWorld = new World(WIDTH, seed);
         myWorld.generateWorld(70, 20);
         TETile[][] worldFrame = myWorld.world;
-        ter.initialize(WIDTH, HEIGHT, 1, 1);
+
+        int xOff = 1;
+        int yOff = -4; //for HUD
+        ter.initialize(WIDTH, HEIGHT, xOff, yOff);
+
         Player p = new Player();
         p.insertPlayer(myWorld);
+
         ter.renderFrame(worldFrame);
+        String tileUnderMouse = "";
+
         while (true) {
+            String tileType = readMouse4Tile(myWorld, xOff, yOff);
+            if (!tileUnderMouse.equals(tileType)) {
+                tileUnderMouse = tileType;
+                StdDraw.clear(Color.BLACK);
+                ter.renderFrame(worldFrame);
+                HUD_update(tileType);
+            }
             if (!StdDraw.hasNextKeyTyped()) {
-                System.out.print(readMouse4Tile(myWorld));
+
+                /**Flashes*/
+//                String tileType = readMouse4Tile(myWorld, xOff, yOff);
+//                if (!tileUnderMouse.equals(tileType)) {
+//                    tileUnderMouse = tileType;
+//                    HUD_update(tileType);
+//                    ter.renderFrame(worldFrame);
+//                }
+//                HUD_update(tileType);
+//                ter.renderFrame(worldFrame);
                 continue;
             }
             char key = StdDraw.nextKeyTyped();
             controller(key, myWorld, p);
             ter.renderFrame(worldFrame);
+            HUD_update(tileType); //
             continue;
         }
     }
-
-    //Test
 
     void controller(char key, World world, Player player) {
         if (key == 'W' || key == 'w') {
@@ -157,10 +179,35 @@ public class Game {
 
     /************************ HUD **********************/
 
-    public static String readMouse4Tile(World myWorld) {
+    public void HUD_update(String type) {
+
+        StdDraw.setPenColor(Color.white);
+        StdDraw.line(0, HEIGHT - 4, WIDTH, HEIGHT - 4);
+
+        Font font = new Font("Calibri", Font.ITALIC, 22);
+        StdDraw.setFont(font);
+
+        StdDraw.text(midWidth, HEIGHT - 2, "The M&M Game");
+
+        font = new Font("Monaco", Font.PLAIN, 14);
+        StdDraw.setFont(font);
+        StdDraw.textLeft(1, HEIGHT - 3, "Coins: 98"); //delete this and uncomment next line when coins implemented
+        //StdDraw.textLeft(1, height - 1, "Coins: " + coins);
+
+        StdDraw.textRight(WIDTH - 4, HEIGHT - 3, type);
+
+        //Set back to original so TETile characters don't change
+        font = new Font("Monaco", Font.BOLD, 14);
+        StdDraw.setFont(font);
+
+        StdDraw.show();
+    }
+
+    /** returns Tile Type under mouse for given World */
+    public static String readMouse4Tile(World myWorld, int xOff, int yOff) {
         int x = (int) StdDraw.mouseX(); //Casting rounds down
         int y = (int) StdDraw.mouseY();
-        String type =  myWorld.world[x][y].description;
+        String type =  myWorld.world[x - xOff][y - yOff].description;
         return type;
     }
 

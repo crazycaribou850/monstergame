@@ -6,6 +6,20 @@
     communication between creators.
 
 -------------------------------------------------------
+Mao 03/02/18 19:30
+HUD:
+
+startGame:
+- ter.initialize in startGame now has yOff of -4 to make room for HUD
+- HUD_update added in while loop
+
+Problems:
+- World is now cut off on bottom of rendered frame (I pushed off fixing this)
+	Solution:
+- Due to offset, readMouse4Tile is off by whatever xOff and yOff are
+	Solution: added xOff, yOff parameters for readMouse4Tile
+
+
 Mao 03/02/18 Morning/Noon
 
 - Ans to MJ in parenthesis to his notes
