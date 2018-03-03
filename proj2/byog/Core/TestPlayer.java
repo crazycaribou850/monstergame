@@ -10,7 +10,7 @@ public class TestPlayer {
         World myWorld = new World(30, 123);
         myWorld.generateWorld(20, 10);
 
-        Player p = new Player();
+        Player p = new Player(new Game());
         p.insertPlayer(myWorld);
 
         ter.renderFrame(myWorld.world);

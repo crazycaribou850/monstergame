@@ -14,6 +14,8 @@ public class World {
     private int failures; // After # consecutive failures, stop inserting Rooms
     Random random;
     Coin[] coins;
+    Monster[] monsters;
+    Player player;
 
     public World(int s, long seed) {
         world = buildWorld(s);
@@ -23,6 +25,18 @@ public class World {
         failures = 0;
         random = new Random(seed);
         coins = new Coin[10]; //Value can be changed later//
+        monsters = new Monster[5]; //Default value: can be changed later //
+    }
+
+    public World(int s, long seed, int coins, int monsters) {
+        world = buildWorld(s);
+        size = s;
+        prev = null;
+        prevprev = null;
+        failures = 0;
+        random = new Random(seed);
+        this.coins = new Coin[coins]; //Value can be changed later//
+        this.monsters = new Monster[monsters];
     }
 
     private TETile[][] buildWorld(int s) {

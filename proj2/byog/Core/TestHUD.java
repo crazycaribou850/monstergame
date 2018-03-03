@@ -52,7 +52,7 @@ public class TestHUD {
         //Display TETile.description under mouse (press any key to stop)
         while (!StdDraw.hasNextKeyTyped()) {
 
-            System.out.println(Game.readMouse4Tile(myWorld, 0, 0));
+            System.out.println(Game.readMouse4Tile(myWorld));
         }
     }
 

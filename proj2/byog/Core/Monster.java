@@ -1,32 +1,21 @@
 package byog.Core;
 
-import byog.TileEngine.TETile;
-import byog.TileEngine.Tileset;
+import byog.TileEngine.*;
 
 import java.util.Random;
 
-public class Player {
+public class Monster {
     int xPos;
     int yPos;
     int coins;
+    int atk;
     boolean dead;
     Game game;
     World world;
     TETile type;
     TETile current;
-    String description = "PERSON";
 
-    public Player(Game g) {
-        xPos = -1;
-        yPos = -1;
-        type = Tileset.PLAYER;
-        current = null;
-        coins = 0;
-        dead = false;
-        this.game = g;
-    }
-
-    public Player(int i, Game g) {
+    public Monster(int atk, Game g) {
         xPos = -1;
         yPos = -1;
         type = Tileset.MONSTER;
@@ -34,42 +23,39 @@ public class Player {
         coins = 0;
         dead = false;
         this.game = g;
+        this.atk = atk;
     }
 
-//    public Player(Tileset t) {
-//        xPos = -1;
-//        yPos = -1;
-//        type = t;
-//    }
-
-    /** Strategy: randomly insert until on Hallway tile */
-    public void insertPlayer(World myWorld) {
+    public void insertMonster(World myWorld) {
         TETile[][] world = myWorld.world;
         Random rand = myWorld.random;
         this.world = myWorld;
         while (xPos < 0) {
             int randX = RandomUtils.uniform(rand, 0, world[0].length);
             int randY = RandomUtils.uniform(rand, 0, world[0].length);
-
+            // Ensures that monsters do not spawn within 1 tile of Player.
             if (world[randX][randY] != Tileset.WALL && world[randX][randY] != Tileset.NOTHING) {
+                for (int i = randX - 1; i <= randX + 1; i++) {
+                    for (int j = randY - 1; j <= randY + 1; j++) {
+                        if (world[i][j] == Tileset.PLAYER) {
+                            continue;
+                        }
+                    }
+                }
                 this.current = world[randX][randY];
                 world[randX][randY] = type;
-                this.xPos = randX;
-                this.yPos = randY;
+                xPos = randX;
+                yPos = randY;
                 return;
             }
         }
     }
 
     public void interaction(TETile tile) {
-        if (tile == Tileset.FLOOR) {
+        if (tile == Tileset.FLOOR || tile == Tileset.COIN) {
             return;
         }
-        if (tile == Tileset.COIN) {
-            this.coins += 1;
-        }
-        if (tile == Tileset.MONSTER) {
-            this.dead = true;
+        if (tile == Tileset.PLAYER) {
             game.gameOver = true;
         }
         return;

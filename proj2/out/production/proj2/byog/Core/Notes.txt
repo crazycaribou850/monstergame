@@ -9,11 +9,21 @@
 MJ 03/03/18 0202hrs
 Bugs found:
 1) Mousing over the top of the window causes a NullPointerException. Mousing over anywhere else is fine tho?
+    FIXED: Added a check in readMouse4Tile function: Checks if y value is below HEIGHT before attempting to access myWorld[x][y]
+           - This prevents an ArrayOutOfBoundsException when the mouseY() value exceeds the myWorld.world array dimensions.
+2) Player spawn locations tend towards the bottom of the map due to the method of sweeping upwards for a possible spawn spot.
+    FIXED: Simply generate a random yValue to use instead of iterating from the bottom of the map.
 
 Implemented:
 1) Player now has a 'current' attribute which refers to it's current position
-2) Offsetting the world seems to cut off the bottom portion of the map: Would it be possible to draw on a non-offset portion of the map?
-    - Might require making font smaller etc so as not to override the drawing.
+2) Offset fix - (Dimensions can be altered by changing the draw locations in HUD_Update)
+3) Minor bug fix (see above)
+4) Coins spawn at random positions. Picking up a coin increases the players coin score and reflects it in the HUD
+5) Found exit method! System.exit(int <exitcode>) closes the window.
+6) Monsters! Monsters move around at random (for the time being). Touching a monster results in GAMEOVER
+7) Implemented quit by pressing ':Q/:q'
+
+Left to do:
 
 
 Mao 03/02/18 19:30
@@ -28,6 +38,11 @@ Problems:
 	Solution:
 - Due to offset, readMouse4Tile is off by whatever xOff and yOff are
 	Solution: added xOff, yOff parameters for readMouse4Tile
+
+	(MJ's solution:
+	-   Initialized frame with HEIGHT+7
+	-   HUD now exists at yPos HEIGHT + y
+	-   No more need to offset, no need for cutoffs and referring to everything in terms of HEIGHT-offset etc.)
 
 
 Mao 03/02/18 Morning/Noon
