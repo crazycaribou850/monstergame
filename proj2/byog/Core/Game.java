@@ -8,8 +8,8 @@ import java.awt.Font;
 public class Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
-    public static final int WIDTH = 40;
-    public static final int HEIGHT = 40;
+    public static final int WIDTH = 30;
+    public static final int HEIGHT = 30;
     boolean gameOver = false;
     int midWidth = WIDTH/2;
     int midHeight = HEIGHT/2;
@@ -91,6 +91,11 @@ public class Game {
         Player p = new Player();
         p.insertPlayer(myWorld);
 
+        for (int i = 0; i < myWorld.coins.length; i++) {
+            myWorld.coins[i] = new Coin();
+            myWorld.coins[i].insertCoin(myWorld);
+        }
+
         ter.renderFrame(worldFrame);
         String tileUnderMouse = "";
 
@@ -142,9 +147,10 @@ public class Game {
         int projectedX = player.xPos + horz;
         int projectedY = player.yPos + vert;
         if (world.world[projectedX][projectedY] != Tileset.WALL && world.world[projectedX][projectedY] != Tileset.NOTHING) {
-            world.world[player.xPos][player.yPos] = Tileset.FLOOR; //* MAYBE Need to figure out how to make tile revert to its previous type
+            world.world[player.xPos][player.yPos] = player.current;
             player.xPos += horz;
             player.yPos += vert;
+            player.current = world.world[projectedX][projectedY];
             world.world[projectedX][projectedY] = player.type;
         }
     }
@@ -205,10 +211,13 @@ public class Game {
 
     /** returns Tile Type under mouse for given World */
     public static String readMouse4Tile(World myWorld, int xOff, int yOff) {
-        int x = (int) StdDraw.mouseX(); //Casting rounds down
-        int y = (int) StdDraw.mouseY();
-        String type =  myWorld.world[x - xOff][y - yOff].description;
-        return type;
+        if (StdDraw.mouseY() < HEIGHT) {
+            int x = (int) StdDraw.mouseX(); //Casting rounds down
+            int y = (int) StdDraw.mouseY();
+            String type = myWorld.world[x - xOff][y - yOff].description;
+            return type;
+        }
+        else { return "None"; }
     }
 
     /***************************************************/

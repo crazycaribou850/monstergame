@@ -6,6 +6,16 @@
     communication between creators.
 
 -------------------------------------------------------
+MJ 03/03/18 0202hrs
+Bugs found:
+1) Mousing over the top of the window causes a NullPointerException. Mousing over anywhere else is fine tho?
+
+Implemented:
+1) Player now has a 'current' attribute which refers to it's current position
+2) Offsetting the world seems to cut off the bottom portion of the map: Would it be possible to draw on a non-offset portion of the map?
+    - Might require making font smaller etc so as not to override the drawing.
+
+
 Mao 03/02/18 19:30
 HUD:
 

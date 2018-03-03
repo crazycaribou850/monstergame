@@ -13,6 +13,7 @@ public class World {
     private Room prevprev; //Previously Previously inserted room
     private int failures; // After # consecutive failures, stop inserting Rooms
     Random random;
+    Coin[] coins;
 
     public World(int s, long seed) {
         world = buildWorld(s);
@@ -21,6 +22,7 @@ public class World {
         prevprev = null;
         failures = 0;
         random = new Random(seed);
+        coins = new Coin[10]; //Value can be changed later//
     }
 
     private TETile[][] buildWorld(int s) {
