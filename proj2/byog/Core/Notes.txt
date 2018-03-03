@@ -19,6 +19,7 @@ Implemented:
 2) Offset fix - (Dimensions can be altered by changing the draw locations in HUD_Update)
 3) Minor bug fix (see above)
 4) Coins spawn at random positions. Picking up a coin increases the players coin score and reflects it in the HUD
+    - Collecting all the coins on the map results in a cool win screen!
 5) Found exit method! System.exit(int <exitcode>) closes the window.
 6) Monsters! Monsters move around at random (for the time being). Touching a monster results in GAMEOVER
 7) Implemented quit by pressing ':Q/:q'
