@@ -6,7 +6,7 @@
     communication between creators.
 
 -------------------------------------------------------
-MJ 03/03/18 0202hrs
+MJ 03/03/18 0730hrs
 Bugs found:
 1) Mousing over the top of the window causes a NullPointerException. Mousing over anywhere else is fine tho?
     FIXED: Added a check in readMouse4Tile function: Checks if y value is below HEIGHT before attempting to access myWorld[x][y]
@@ -19,11 +19,23 @@ Implemented:
 2) Offset fix - (Dimensions can be altered by changing the draw locations in HUD_Update)
 3) Minor bug fix (see above)
 4) Coins spawn at random positions. Picking up a coin increases the players coin score and reflects it in the HUD
+    - Collecting all the coins on the map results in a cool win screen!
 5) Found exit method! System.exit(int <exitcode>) closes the window.
 6) Monsters! Monsters move around at random (for the time being). Touching a monster results in GAMEOVER
 7) Implemented quit by pressing ':Q/:q'
 
+Note:
+To implement interactivity between objects, classes were updated with relevant attributes so objects can access each other's data.
+IE: A Game instance, player instance and monster instance all contain a World.
+    Similarly, a World instance would contain a player instance and have access to the player, objects and monsters within.
+
 Left to do:
+1) Save/Load
+2) More cool gameplay features!
+3) Warp tiles?
+
+Aside:
+1) Cleanup: Can we delete the trial code on line 146 - 153
 
 
 Mao 03/02/18 19:30
