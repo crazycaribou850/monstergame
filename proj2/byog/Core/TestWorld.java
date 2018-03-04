@@ -142,18 +142,25 @@ public class TestWorld {
     }
 
     public static void testWarps() {
-        //generate a simple World (just rooms/hallways)
+        //generate a simple World (just rooms/hallways) and insert WARPs
         TERenderer ter = new TERenderer();
         ter.initialize(30, 30);
 
         World myWorld = new World(30, 999);
         myWorld.generateWorld(20, 10);
 
-        Warp w = new Warp(myWorld);
-        System.out.println("xStart: " + w.xStart);
-        System.out.println("yStart: " + w.yStart);
-        System.out.println("xEnd: " + w.xEnd);
-        System.out.println("yEnd: " + w.yEnd);
+        Warp w1 = new Warp(myWorld);
+        System.out.println("x1Start: " + w1.xStart);
+        System.out.println("y1Start: " + w1.yStart);
+        System.out.println("x1End: " + w1.xEnd);
+        System.out.println("y1End: " + w1.yEnd);
+
+        //create warp2 in upper half
+        Warp w2 = new Warp(myWorld, 0, 15);
+        System.out.println("x2Start: " + w2.xStart);
+        System.out.println("y2Start: " + w2.yStart);
+        System.out.println("x2End: " + w2.xEnd);
+        System.out.println("y2End: " + w2.yEnd);
 
         ter.renderFrame(myWorld.world);
     }
@@ -168,6 +175,6 @@ public class TestWorld {
         //testGenerateWorld(); //Passes
         //testWallified();
         //testRoomAtEdge(); //Passes
-        testWarps();
+        testWarps(); //Passes (these warps don't do anything...YET)
     }
 }
