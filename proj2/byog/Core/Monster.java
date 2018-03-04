@@ -32,7 +32,7 @@ public class Monster implements Serializable{
             int randX = RandomUtils.uniform(rand, 0, world[0].length);
             int randY = RandomUtils.uniform(rand, 0, world[0].length);
             // Ensures that monsters do not spawn within 1 tile of Player.
-            if (!(world[randX][randY].equals(Tileset.WALL)) && !(world[randX][randY].equals(Tileset.NOTHING))) {
+            if (!(world[randX][randY].description.equals("wall")) && !(world[randX][randY].description.equals("nothing"))) {
                 this.current = world[randX][randY];
                 world[randX][randY] = type;
                 xPos = randX;
@@ -43,10 +43,10 @@ public class Monster implements Serializable{
     }
 
     public void interaction(TETile tile) {
-        if (tile.equals(Tileset.FLOOR) || tile.equals(Tileset.COIN)) {
+        if (tile.description.equals("floor") || tile.description.equals("coin")) {
             return;
         }
-        if (tile.equals(Tileset.PLAYER)) {
+        if (tile.description.equals("player")) {
             game.gameOver = true;
         }
         return;

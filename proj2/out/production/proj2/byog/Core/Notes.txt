@@ -11,10 +11,11 @@ Warps.java:
 Two constructors:
   1) defaults converting most bottom left Room into Warp
   2) converts first Room above y (parameter passed in)
-- Warp tests in TestWorld.java
 
 World.java:
 1. added HashMap type variable "warps" to store warps
+2. added warpFlash(), warpUnflash() methods that change all warp tiles
+*Run TestWorld.java to see effect
 
 MJ 03/03/18 0730hrs
 Bugs found:

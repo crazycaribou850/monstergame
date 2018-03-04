@@ -51,7 +51,7 @@ public class Player implements Serializable{
             int randX = RandomUtils.uniform(rand, 0, world[0].length);
             int randY = RandomUtils.uniform(rand, 0, world[0].length);
 
-            if (world[randX][randY] != Tileset.WALL && world[randX][randY] != Tileset.NOTHING) {
+            if (!(world[randX][randY].description.equals("wall")) && !(world[randX][randY].description.equals("nothing"))) {
                 this.current = world[randX][randY];
                 world[randX][randY] = type;
                 this.xPos = randX;
@@ -62,13 +62,13 @@ public class Player implements Serializable{
     }
 
     public void interaction(TETile tile) {
-        if (tile == Tileset.FLOOR) {
+        if (tile.description.equals("floor")) {
             return;
         }
-        if (tile == Tileset.COIN) {
+        if (tile.description.equals("coin")) {
             this.coins += 1;
         }
-        if (tile == Tileset.MONSTER) {
+        if (tile.description.equals("IM GONNA GET U")) {
             this.dead = true;
             game.gameOver = true;
         }
