@@ -18,6 +18,7 @@ Fixing bugs:
     and call this in controller() under WASD.
     Deleted for loop that moves Monsters in gameLoop()
         This way any other key(s) we want to add won't move Monsters either
+To-do: Play game from Terminal rather than TestGame.java
 
 Mao 03/03/18 19:00
 Warps.java:
