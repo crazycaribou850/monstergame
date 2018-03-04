@@ -163,6 +163,9 @@ public class Game implements Serializable{
             mainWorld.coins[i].insertCoin(mainWorld);
         }
 
+        new Warp(mainWorld, "w1");
+        new Warp(mainWorld, "w2",HEIGHT / 2);
+
         for (int i = 0; i < mainWorld.monsters.length; i++) {
             mainWorld.monsters[i] = new Monster(mainWorld.random.nextInt(5), this);
             mainWorld.monsters[i].insertMonster(mainWorld);
@@ -189,9 +192,7 @@ public class Game implements Serializable{
             }
             char key = StdDraw.nextKeyTyped();
             controller(key);
-            for (Monster x: mainWorld.monsters) {
-                randomMove(x);
-            }
+
             ter.renderFrame(worldFrame);
             HUD_update(tileType, this.mainWorld.player.coins); //
             check_win_conditions();
@@ -235,15 +236,22 @@ public class Game implements Serializable{
     void controller(char key) {
         if (key == 'W' || key == 'w') {
             moveCharacter(0, 1);
+            monsterMotion();
         }
         else if (key == 'S' || key == 's') {
             moveCharacter(0, -1);
+            monsterMotion();
         }
         else if (key == 'D' || key == 'd') {
             moveCharacter(1, 0);
+            monsterMotion();
         }
         else if (key == 'A' || key == 'a') {
             moveCharacter(-1, 0);
+            monsterMotion();
+        }
+        else if (key == 'O' || key == 'o') {
+            warp();
         }
         else if (key == ':') {
             while (true)  {
@@ -258,6 +266,12 @@ public class Game implements Serializable{
                 controller(newkey);
                 return;
             }
+        }
+    }
+
+    void monsterMotion() {
+        for (Monster x : mainWorld.monsters) {
+            randomMove(x);
         }
     }
 
@@ -295,6 +309,58 @@ public class Game implements Serializable{
             this.mainWorld.world[projectedX][projectedY] = this.mainWorld.player.type;
         }
     }
+
+    void warp() {
+        World world = this.mainWorld;
+        TETile[][] worldTiles = world.world;
+        Player p = world.player;
+
+        if (world.player.current.description.equals("warp")) {
+
+            //Identify which Warp the Player is in
+            Warp oldWarp = whichWarpIn(p);
+            Warp newWarp = null;
+
+            //Find another Warp
+            for (Warp w: world.warps.values()) {
+                if (w.equals(oldWarp)) {
+                    continue;
+                }
+                newWarp = w;
+            }
+
+            mainWorld.warpFlash();
+            ter.renderFrame(this.mainWorld.world);
+
+            StdDraw.pause(400);
+
+            this.mainWorld.warpUnflash();
+
+            //Spawn player in bottom left of the new Warp
+            worldTiles[newWarp.xStart][newWarp.yStart] = p.type;
+            p.xPos = newWarp.xStart;
+            p.yPos = newWarp.yStart;
+
+            ter.renderFrame(this.mainWorld.world);
+
+        } //do nothing if Player not in Warp
+        return;
+    }
+
+    /** returns which Warp player is in */
+    Warp whichWarpIn(Player p) {
+        int pX = p.xPos;
+        int pY = p.yPos;
+
+        for (Warp w : mainWorld.warps.values()) {
+            if (pX >= w.xStart && pX <= w.xEnd
+                    && pY >= w.yStart && pY <= w.yEnd) {
+                return w;
+            }
+        }
+        return null; //Player's not in a warp
+    }
+
 
     //############################   END OF MAIN GAME CODE   #######################################\\
     //##############################################################################################\\

@@ -6,16 +6,39 @@
     communication between creators.
 
 -------------------------------------------------------
+Mao 03/04/ 12:00
+Fixing bugs:
+1) Seed 999: One tile in each warp gets erased after first move
+    Problem: Warp gets built over Monster but Monster's .current
+    is a Floor tile bc that's what he was spawned on
+    Solution: Rearrange startGame() so order of insertion is:
+        Coins -> Warps -> Monsters
+2) 'O' key also triggers movement of Monsters
+    Created new method monsterMotion() that moves all Monsters
+    and call this in controller() under WASD.
+    Deleted for loop that moves Monsters in gameLoop()
+        This way any other key(s) we want to add won't move Monsters either
+
 Mao 03/03/18 19:00
 Warps.java:
 Two constructors:
   1) defaults converting most bottom left Room into Warp
-  2) converts first Room above y (parameter passed in)
+  2) converts first Room above y (parameter passed in) into Warp
 
 World.java:
 1. added HashMap type variable "warps" to store warps
 2. added warpFlash(), warpUnflash() methods that change all warp tiles
 *Run TestWorld.java to see effect
+
+Game.java:
+1. added 'O' key to controller that calls warp()
+2. added warp() and whichWarpIn(Player p)
+	note: warp() calls ter.renderFrame itself (so outside of gameLoop) to display flashing effect of warps
+
+Some bugs:
+1) Seed 999: One tile in each warp gets erased after first move
+2) Seed 988: Warps merge together (but not necessaryily a bad thing! Can still warp onto different warp tiles)
+	Potential improvement could be to spawn Player on random Warp tile in a Warp room (right now its bottom left)
 
 MJ 03/03/18 0730hrs
 Bugs found:
