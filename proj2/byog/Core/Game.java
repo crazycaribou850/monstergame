@@ -280,8 +280,9 @@ public class Game implements Serializable{
     void moveCharacter(int horz, int vert) {
         int projectedX = this.mainWorld.player.xPos + horz;
         int projectedY = this.mainWorld.player.yPos + vert;
+
         if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall")) && !(this.mainWorld.world[projectedX][projectedY].description.equals("nothing"))) {
-            if (this.mainWorld.player.current == Tileset.COIN) {
+            if (this.mainWorld.player.current.description.equals("coin")) {
                 this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = Tileset.FLOOR;
             }
             else {
