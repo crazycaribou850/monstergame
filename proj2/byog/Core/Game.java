@@ -57,10 +57,12 @@ public class Game implements Serializable{
     public void drawGameOverFrame() {
         StdDraw.clear(Color.BLACK);
         Font bigFont = new Font("Monaco", Font.BOLD, 50);
+        Font normalFont = new Font("Monaco", Font.BOLD, 25);
         StdDraw.setFont(bigFont);
         StdDraw.setPenColor(Color.red);
         StdDraw.text(midWidth, midHeight*(1.25), "GAME OVER");
-        StdDraw.text(midWidth, midHeight, "YOU LOSE");
+        StdDraw.setFont(normalFont);
+        StdDraw.text(midWidth, midHeight, "The monsters got you!");
         StdDraw.show();
     }
 
