@@ -101,8 +101,8 @@ public class Game implements Serializable{
                 return;
             }
             if (userInput == 'L' || userInput == 'l') {
-                /* loadGame(); */
-                drawGameOverFrame(); // For test purposes
+                Game loadGame = loadGame();
+                loadGame.startGame(); // For test purposes
                 return;
             }
             if (userInput == 'Q' || userInput == 'q') {
@@ -362,7 +362,7 @@ public class Game implements Serializable{
         }
     }
 
-    private static Game loadWorld() {
+    private static Game loadGame() {
         File f = new File("./game.ser");
         if (f.exists()) {
             try {
