@@ -36,6 +36,7 @@ public class Tileset implements Serializable{
     public static final TETile TREE = new TETile('♠', Color.green, Color.black, "tree");
     public static final TETile COIN = new TETile('0', Color.yellow, new Color(128, 192, 128), "coin");
     public static final TETile MONSTER = new TETile('♠', Color.black, Color.red, "IM GONNA GET U");
+    public static final TETile FLASH = new TETile('!', Color.white, Color.red, "flash");
 }
 
 

@@ -27,6 +27,7 @@ public class Warp implements Serializable {
 
     TETile type = Tileset.SAND;
     String description = "WARP";
+    String name;
 
     /** bottom left */
     int xStart;
@@ -37,7 +38,7 @@ public class Warp implements Serializable {
     int yEnd;
 
     // Create warp room from 0, 0
-    public Warp(World myWorld) {
+    public Warp(World myWorld, String name) {
         world = myWorld;
         wTiles = world.world;
 
@@ -48,20 +49,22 @@ public class Warp implements Serializable {
         yEnd = roomCoord[3];
 
         insertWarp();
+        myWorld.warps.put(name, this);
     }
 
-    // Create warp room to the right/above xinit, yinit
-    public Warp(World myWorld, int x, int y) {
+    // Create warp room to the above yinit
+    public Warp(World myWorld, String name, int y) {
         world = myWorld;
         wTiles = world.world;
 
-        int[] roomCoord = findRoom(x, y);
+        int[] roomCoord = findRoom(0, y);
         xStart = roomCoord[0];
         yStart = roomCoord[1];
         xEnd = roomCoord[2];
         yEnd = roomCoord[3];
 
         insertWarp();
+        myWorld.warps.put(name, this);
     }
 
     /** Returns 4 element int array of coordinates ([startx, starty, endx, endy])
