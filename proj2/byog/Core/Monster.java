@@ -7,7 +7,6 @@ import java.util.Random;
 public class Monster implements Serializable{
     int xPos;
     int yPos;
-    int coins;
     int atk;
     boolean dead;
     Game game;
@@ -20,7 +19,6 @@ public class Monster implements Serializable{
         yPos = -1;
         type = Tileset.MONSTER;
         current = null;
-        coins = 0;
         dead = false;
         this.game = g;
         this.atk = atk;

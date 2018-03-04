@@ -141,6 +141,23 @@ public class TestWorld {
         ter.renderFrame(myWorld.world);
     }
 
+    public static void testWarps() {
+        //generate a simple World (just rooms/hallways)
+        TERenderer ter = new TERenderer();
+        ter.initialize(30, 30);
+
+        World myWorld = new World(30, 999);
+        myWorld.generateWorld(20, 10);
+
+        Warp w = new Warp(myWorld);
+        System.out.println("xStart: " + w.xStart);
+        System.out.println("yStart: " + w.yStart);
+        System.out.println("xEnd: " + w.xEnd);
+        System.out.println("yEnd: " + w.yEnd);
+
+        ter.renderFrame(myWorld.world);
+    }
+
     public static void main(String[] args) {
         //testCreateRoom(); //Passes
         //testEmptyWorld(); //Passes
@@ -148,8 +165,9 @@ public class TestWorld {
         //testInsertMultipleRooms(); //Passes
         //testInsertHallway(); //Passes
         //testBuildOverHallway(); //Passes
-        //testGenerateWorld(); //Buggy
+        //testGenerateWorld(); //Passes
         //testWallified();
         //testRoomAtEdge(); //Passes
+        testWarps();
     }
 }

@@ -184,16 +184,6 @@ public class Game implements Serializable{
                 HUD_update(tileType, p.coins);
             }
             if (!StdDraw.hasNextKeyTyped()) {
-
-                /**Flashes*/
-//                String tileType = readMouse4Tile(myWorld, xOff, yOff);
-//                if (!tileUnderMouse.equals(tileType)) {
-//                    tileUnderMouse = tileType;
-//                    HUD_update(tileType);
-//                    ter.renderFrame(worldFrame);
-//                }
-//                HUD_update(tileType);
-//                ter.renderFrame(worldFrame);
                 continue;
             }
             char key = StdDraw.nextKeyTyped();
@@ -321,7 +311,6 @@ public class Game implements Serializable{
 
         font = new Font("Monaco", Font.PLAIN, 14);
         StdDraw.setFont(font);
-        //StdDraw.textLeft(1, HEIGHT+1, "Coins: 98"); //delete this and uncomment next line when coins implemented
         StdDraw.textLeft(1, HEIGHT + 1, "Coins: " + coins);
 
         StdDraw.textRight(WIDTH - 4, HEIGHT+1, type);

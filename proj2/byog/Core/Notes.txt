@@ -6,6 +6,10 @@
     communication between creators.
 
 -------------------------------------------------------
+Mao 03/03/18 19:00
+Warps.java:
+- Warp tests in TestWorld.java
+
 MJ 03/03/18 0730hrs
 Bugs found:
 1) Mousing over the top of the window causes a NullPointerException. Mousing over anywhere else is fine tho?
@@ -36,7 +40,7 @@ Left to do:
 
 Aside:
 1) Cleanup: Can we delete the trial code on line 146 - 153
-
+    (Mao: Yes. Done.)
 
 Mao 03/02/18 19:30
 HUD:
