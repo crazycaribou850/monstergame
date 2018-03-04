@@ -1,9 +1,10 @@
 package byog.Core;
 
+import java.io.Serializable;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
-public class Room {
+public class Room implements Serializable{
     TETile[][] room;
 
     /** Tile type for room's perimeter (default: WALL) */

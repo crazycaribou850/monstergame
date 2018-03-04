@@ -4,8 +4,16 @@ import byog.TileEngine.*;
 import edu.princeton.cs.introcs.StdDraw;
 import java.awt.Color;
 import java.awt.Font;
+import java.io.Serializable;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-public class Game {
+public class Game implements Serializable{
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 30;
@@ -14,7 +22,7 @@ public class Game {
     int midWidth = WIDTH/2;
     int midHeight = HEIGHT/2;
     int seed;
-    World world;
+    World mainWorld;
 
     //*************************** DRAW METHODS ********************************\\
 
@@ -86,8 +94,9 @@ public class Game {
             userInput = StdDraw.nextKeyTyped();
             if (userInput == 'N' || userInput == 'n') {
                 this.seed = requestSeed();
+                this.mainWorld = new World(WIDTH, this.seed);
                 StdDraw.pause(300);
-                startGame(seed);
+                startGame();
                 drawGameOverFrame(); // For test purposes
                 return;
             }
@@ -140,28 +149,24 @@ public class Game {
 
 
     // Initializes the real game. This is where the bulk of the action happens. //
-    public void startGame(int seed) {
-        World myWorld = new World(WIDTH, seed);
-        world = myWorld;
-        myWorld.generateWorld(70, 20);
-        TETile[][] worldFrame = myWorld.world;
+    public void startGame() {
+        mainWorld.generateWorld(70, 20);
+        TETile[][] worldFrame = mainWorld.world;
 
-        //int xOff = 1;
-        //int yOff = -4; //for HUD
         ter.initialize(WIDTH, HEIGHT+4);
 
         Player p = new Player(this);
-        p.insertPlayer(myWorld);
-        myWorld.player = p;
+        p.insertPlayer(mainWorld);
+        mainWorld.player = p;
 
-        for (int i = 0; i < myWorld.coins.length; i++) {
-            myWorld.coins[i] = new Coin();
-            myWorld.coins[i].insertCoin(myWorld);
+        for (int i = 0; i < mainWorld.coins.length; i++) {
+            mainWorld.coins[i] = new Coin();
+            mainWorld.coins[i].insertCoin(mainWorld);
         }
 
-        for (int i = 0; i < myWorld.monsters.length; i++) {
-            myWorld.monsters[i] = new Monster(myWorld.random.nextInt(5), this);
-            myWorld.monsters[i].insertMonster(myWorld);
+        for (int i = 0; i < mainWorld.monsters.length; i++) {
+            mainWorld.monsters[i] = new Monster(mainWorld.random.nextInt(5), this);
+            mainWorld.monsters[i].insertMonster(mainWorld);
         }
 
 
@@ -169,7 +174,7 @@ public class Game {
         String tileUnderMouse = "";
 
         while (gameOver == false) {
-            String tileType = readMouse4Tile(myWorld);
+            String tileType = readMouse4Tile(mainWorld);
             if (!tileUnderMouse.equals(tileType)) {
                 tileUnderMouse = tileType;
                 StdDraw.clear(Color.BLACK);
@@ -190,13 +195,13 @@ public class Game {
                 continue;
             }
             char key = StdDraw.nextKeyTyped();
-            controller(key, myWorld, p);
-            for (Monster x: myWorld.monsters) {
-                randomMove(x, x.world);
+            controller(key);
+            for (Monster x: mainWorld.monsters) {
+                randomMove(x);
             }
             ter.renderFrame(worldFrame);
             HUD_update(tileType, p.coins); //
-            check_win_conditions(this);
+            check_win_conditions();
             continue;
         }
         drawGameOverFrame();
@@ -206,8 +211,8 @@ public class Game {
 
     // Function to check if any win conditions have been met //
     // Only one has been identified so far, but we can edit this method if we think of more//
-    void check_win_conditions(Game g) {
-        if (g.world.coins.length == g.world.player.coins) {
+    void check_win_conditions() {
+        if (this.mainWorld.coins.length == this.mainWorld.player.coins) {
             drawWinFrame();
             StdDraw.pause(10000);
             System.exit(2);
@@ -215,35 +220,35 @@ public class Game {
     }
 
     // Forces monster to move randomly in one tile //
-    void randomMove(Monster x, World world) {
+    void randomMove(Monster x) {
         int initial = x.xPos + x.yPos;
         while (x.xPos + x.yPos == initial) {
-            int decision = world.random.nextInt(4);
+            int decision = this.mainWorld.random.nextInt(4);
             if (decision == 0) {
-                moveMonster(1, 0, world, x);
+                moveMonster(1, 0, x);
             } else if (decision == 1) {
-                moveMonster(0, 1, world, x);
+                moveMonster(0, 1, x);
             } else if (decision == 2) {
-                moveMonster(-1, 0, world, x);
+                moveMonster(-1, 0, x);
             } else if (decision == 3) {
-                moveMonster(0, -1, world, x);
+                moveMonster(0, -1, x);
             }
         }
     }
 
     // Controller that processess user input and sends it to the correct method //
-    void controller(char key, World world, Player player) {
+    void controller(char key) {
         if (key == 'W' || key == 'w') {
-            moveCharacter(0, 1, world, player);
+            moveCharacter(0, 1);
         }
         else if (key == 'S' || key == 's') {
-            moveCharacter(0, -1, world, player);
+            moveCharacter(0, -1);
         }
         else if (key == 'D' || key == 'd') {
-            moveCharacter(1, 0, world, player);
+            moveCharacter(1, 0);
         }
         else if (key == 'A' || key == 'a') {
-            moveCharacter(-1, 0, world, player);
+            moveCharacter(-1, 0);
         }
         else if (key == ':') {
             while (true)  {
@@ -252,46 +257,46 @@ public class Game {
                 }
                 char newkey = StdDraw.nextKeyTyped();
                 if (newkey == 'Q' || newkey == 'q') {
-                    //Save function//
+                    saveGame(this);
                     System.exit(1);
                 }
-                controller(newkey, world, player);
+                controller(newkey);
                 return;
             }
         }
     }
 
     // Moves a monster horz units in the x direction and vert units in the y direction. //
-    void moveMonster(int horz, int vert, World world, Monster thing) {
+    void moveMonster(int horz, int vert, Monster thing) {
         int projectedX = thing.xPos + horz;
         int projectedY = thing.yPos + vert;
 
-        if (world.world[projectedX][projectedY] != Tileset.WALL && world.world[projectedX][projectedY] != Tileset.MONSTER) {
-            world.world[thing.xPos][thing.yPos] = thing.current;
+        if (this.mainWorld.world[projectedX][projectedY] != Tileset.WALL && this.mainWorld.world[projectedX][projectedY] != Tileset.MONSTER) {
+            this.mainWorld.world[thing.xPos][thing.yPos] = thing.current;
             thing.xPos += horz;
             thing.yPos += vert;
-            thing.current = world.world[projectedX][projectedY];
+            thing.current = this.mainWorld.world[projectedX][projectedY];
             thing.interaction(thing.current);
-            world.world[projectedX][projectedY] = thing.type;
+            this.mainWorld.world[projectedX][projectedY] = thing.type;
         }
     }
 
     // Moves our Player horz units in the x direction and vert units in the y direction. //
-    void moveCharacter(int horz, int vert, World world, Player thing) {
-        int projectedX = thing.xPos + horz;
-        int projectedY = thing.yPos + vert;
-        if (world.world[projectedX][projectedY] != Tileset.WALL && world.world[projectedX][projectedY] != Tileset.NOTHING) {
-            if (thing.current == Tileset.COIN) {
-                world.world[thing.xPos][thing.yPos] = Tileset.FLOOR;
+    void moveCharacter(int horz, int vert) {
+        int projectedX = this.mainWorld.player.xPos + horz;
+        int projectedY = this.mainWorld.player.yPos + vert;
+        if (this.mainWorld.world[projectedX][projectedY] != Tileset.WALL && this.mainWorld.world[projectedX][projectedY] != Tileset.NOTHING) {
+            if (this.mainWorld.player.current == Tileset.COIN) {
+                this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = Tileset.FLOOR;
             }
             else {
-                world.world[thing.xPos][thing.yPos] = thing.current;
+                this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = this.mainWorld.player.current;
             }
-            thing.xPos += horz;
-            thing.yPos += vert;
-            thing.current = world.world[projectedX][projectedY];
-            thing.interaction(thing.current);
-            world.world[projectedX][projectedY] = thing.type;
+            this.mainWorld.player.xPos += horz;
+            this.mainWorld.player.yPos += vert;
+            this.mainWorld.player.current = this.mainWorld.world[projectedX][projectedY];
+            this.mainWorld.player.interaction(this.mainWorld.player.current);
+            this.mainWorld.world[projectedX][projectedY] = this.mainWorld.player.type;
         }
     }
 
@@ -337,7 +342,50 @@ public class Game {
 
     /***************************************************/
 
+    /************************ Save and Load **********************/
+    private static void saveGame(Game g) {
+        File f = new File("./game.ser");
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+            FileOutputStream fs = new FileOutputStream(f);
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+            os.writeObject(g);
+            os.close();
+        }  catch (FileNotFoundException e) {
+            System.out.println("file not found");
+            System.exit(0);
+        } catch (IOException e) {
+            System.out.println(e);
+            System.exit(0);
+        }
+    }
 
+    private static Game loadWorld() {
+        File f = new File("./game.ser");
+        if (f.exists()) {
+            try {
+                FileInputStream fs = new FileInputStream(f);
+                ObjectInputStream os = new ObjectInputStream(fs);
+                Game loadGame = (Game) os.readObject();
+                os.close();
+                return loadGame;
+            } catch (FileNotFoundException e) {
+                System.out.println("file not found");
+                System.exit(0);
+            } catch (IOException e) {
+                System.out.println(e);
+                System.exit(0);
+            } catch (ClassNotFoundException e) {
+                System.out.println("class not found");
+                System.exit(0);
+            }
+        }
+
+        /* In the case no World has been saved yet, we return a new one. */
+        return new Game();
+    }
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */

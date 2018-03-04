@@ -2,8 +2,9 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+import java.io.Serializable;
 
-public class Hallway {
+public class Hallway implements Serializable{
     /** always plots left and upwards */
     TETile type;
     TETile[] horizontal;

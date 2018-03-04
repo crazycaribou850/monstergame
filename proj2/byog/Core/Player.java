@@ -2,10 +2,10 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-
+import java.io.Serializable;
 import java.util.Random;
 
-public class Player {
+public class Player implements Serializable{
     int xPos;
     int yPos;
     int coins;

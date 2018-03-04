@@ -1,11 +1,11 @@
 package byog.Core;
-
+import java.io.Serializable;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.util.Random;
 
-public class World {
+public class World implements Serializable{
     TETile[][] world;
     int size;
 
@@ -24,8 +24,8 @@ public class World {
         prevprev = null;
         failures = 0;
         random = new Random(seed);
-        coins = new Coin[10]; //Value can be changed later//
-        monsters = new Monster[5]; //Default value: can be changed later //
+        coins = new Coin[5]; //Value can be changed later//
+        monsters = new Monster[20]; //Default value: can be changed later //
     }
 
     public World(int s, long seed, int coins, int monsters) {
