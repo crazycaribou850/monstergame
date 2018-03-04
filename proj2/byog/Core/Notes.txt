@@ -6,6 +6,14 @@
     communication between creators.
 
 -------------------------------------------------------
+Mao 03/04/ 12:00
+Fixing bugs:
+1) Seed 999: One tile in each warp gets erased after first move
+    Problem: Warp gets built over Monster but Monster's .current
+    is a Floor tile bc that's what he was spawned on
+    Solution: Rearrange startGame() so order of insertion is:
+        Coins -> Warps -> Monsters
+
 Mao 03/03/18 19:00
 Warps.java:
 Two constructors:
