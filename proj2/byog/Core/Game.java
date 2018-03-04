@@ -222,7 +222,8 @@ public class Game implements Serializable{
     // Forces monster to move randomly in one tile //
     void randomMove(Monster x) {
         int initial = x.xPos + x.yPos;
-        while (x.xPos + x.yPos == initial) {
+        int tolerance = 10;
+        while (x.xPos + x.yPos == initial && tolerance > 0) {
             int decision = this.mainWorld.random.nextInt(4);
             if (decision == 0) {
                 moveMonster(1, 0, x);
@@ -233,6 +234,7 @@ public class Game implements Serializable{
             } else if (decision == 3) {
                 moveMonster(0, -1, x);
             }
+            tolerance -= 1;
         }
     }
 
