@@ -192,9 +192,7 @@ public class Game implements Serializable{
             }
             char key = StdDraw.nextKeyTyped();
             controller(key);
-            for (Monster x: mainWorld.monsters) {
-                randomMove(x);
-            }
+
             ter.renderFrame(worldFrame);
             HUD_update(tileType, this.mainWorld.player.coins); //
             check_win_conditions();
@@ -238,15 +236,19 @@ public class Game implements Serializable{
     void controller(char key) {
         if (key == 'W' || key == 'w') {
             moveCharacter(0, 1);
+            monsterMotion();
         }
         else if (key == 'S' || key == 's') {
             moveCharacter(0, -1);
+            monsterMotion();
         }
         else if (key == 'D' || key == 'd') {
             moveCharacter(1, 0);
+            monsterMotion();
         }
         else if (key == 'A' || key == 'a') {
             moveCharacter(-1, 0);
+            monsterMotion();
         }
         else if (key == 'O' || key == 'o') {
             warp();
@@ -264,6 +266,12 @@ public class Game implements Serializable{
                 controller(newkey);
                 return;
             }
+        }
+    }
+
+    void monsterMotion() {
+        for (Monster x : mainWorld.monsters) {
+            randomMove(x);
         }
     }
 

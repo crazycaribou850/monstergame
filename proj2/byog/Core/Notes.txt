@@ -13,6 +13,11 @@ Fixing bugs:
     is a Floor tile bc that's what he was spawned on
     Solution: Rearrange startGame() so order of insertion is:
         Coins -> Warps -> Monsters
+2) 'O' key also triggers movement of Monsters
+    Created new method monsterMotion() that moves all Monsters
+    and call this in controller() under WASD.
+    Deleted for loop that moves Monsters in gameLoop()
+        This way any other key(s) we want to add won't move Monsters either
 
 Mao 03/03/18 19:00
 Warps.java:
