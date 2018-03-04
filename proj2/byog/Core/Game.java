@@ -104,7 +104,7 @@ public class Game implements Serializable{
             }
             if (userInput == 'L' || userInput == 'l') {
                 Game loadGame = loadGame();
-                loadGame.startGame();
+                loadGame.gameLoop();
                 return;
             }
             if (userInput == 'Q' || userInput == 'q') {
@@ -154,8 +154,6 @@ public class Game implements Serializable{
         mainWorld.generateWorld(70, 20);
         TETile[][] worldFrame = mainWorld.world;
 
-        ter.initialize(WIDTH, HEIGHT+4);
-
         Player p = new Player(this);
         p.insertPlayer(mainWorld);
         mainWorld.player = p;
@@ -170,17 +168,21 @@ public class Game implements Serializable{
             mainWorld.monsters[i].insertMonster(mainWorld);
         }
 
+        gameLoop();
+    }
 
+    void gameLoop() {
+        ter.initialize(WIDTH, HEIGHT + 4);
+        TETile[][] worldFrame = this.mainWorld.world;
         ter.renderFrame(worldFrame);
         String tileUnderMouse = "";
-
         while (gameOver == false) {
             String tileType = readMouse4Tile(mainWorld);
             if (!tileUnderMouse.equals(tileType)) {
                 tileUnderMouse = tileType;
                 StdDraw.clear(Color.BLACK);
                 ter.renderFrame(worldFrame);
-                HUD_update(tileType, p.coins);
+                HUD_update(tileType, this.mainWorld.player.coins);
             }
             if (!StdDraw.hasNextKeyTyped()) {
                 continue;
@@ -191,7 +193,7 @@ public class Game implements Serializable{
                 randomMove(x);
             }
             ter.renderFrame(worldFrame);
-            HUD_update(tileType, p.coins); //
+            HUD_update(tileType, this.mainWorld.player.coins); //
             check_win_conditions();
             continue;
         }
