@@ -1,6 +1,7 @@
 package byog.Core;
 
 import byog.TileEngine.TERenderer;
+import edu.princeton.cs.introcs.StdDraw;
 
 import static org.junit.Assert.*;
 
@@ -141,27 +142,53 @@ public class TestWorld {
         ter.renderFrame(myWorld.world);
     }
 
-    public static void testWarps() {
+    public static World generateNoRender() {
         //generate a simple World (just rooms/hallways) and insert WARPs
-        TERenderer ter = new TERenderer();
-        ter.initialize(30, 30);
-
         World myWorld = new World(30, 999);
         myWorld.generateWorld(20, 10);
+        return myWorld;
+    }
 
-        Warp w1 = new Warp(myWorld);
+    public static void testWarps() {
+        TERenderer ter = new TERenderer();
+        ter.initialize(30, 30);
+        World myWorld = generateNoRender();
+
+        Warp w1 = new Warp(myWorld, "w1");
         System.out.println("x1Start: " + w1.xStart);
         System.out.println("y1Start: " + w1.yStart);
         System.out.println("x1End: " + w1.xEnd);
         System.out.println("y1End: " + w1.yEnd);
 
         //create warp2 in upper half
-        Warp w2 = new Warp(myWorld, 0, 15);
+        Warp w2 = new Warp(myWorld, "w2",15);
         System.out.println("x2Start: " + w2.xStart);
         System.out.println("y2Start: " + w2.yStart);
         System.out.println("x2End: " + w2.xEnd);
         System.out.println("y2End: " + w2.yEnd);
 
+        ter.renderFrame(myWorld.world);
+    }
+
+    public static void testWarpFlashandUnflash() {
+        TERenderer ter = new TERenderer();
+        ter.initialize(30, 30);
+        World myWorld = generateNoRender();
+
+        Warp w1 = new Warp(myWorld, "w1");
+        Warp w2 = new Warp(myWorld, "w2",15);
+
+        //Warp tiles
+        ter.renderFrame(myWorld.world);
+        StdDraw.pause(1000);
+
+        //Flash, pause a secs
+        myWorld.warpFlash();
+        ter.renderFrame(myWorld.world);
+        StdDraw.pause(1000);
+
+        //Revert back to original Warp tile
+        myWorld.warpUnflash();
         ter.renderFrame(myWorld.world);
     }
 
@@ -175,6 +202,8 @@ public class TestWorld {
         //testGenerateWorld(); //Passes
         //testWallified();
         //testRoomAtEdge(); //Passes
-        testWarps(); //Passes (these warps don't do anything...YET)
+
+        //testWarps(); //Passes (these warps don't do anything...YET)
+        testWarpFlashandUnflash();
     }
 }

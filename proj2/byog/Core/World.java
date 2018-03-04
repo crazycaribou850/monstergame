@@ -4,6 +4,7 @@ import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.util.Random;
+import java.util.HashMap;
 
 public class World implements Serializable{
     TETile[][] world;
@@ -15,6 +16,7 @@ public class World implements Serializable{
     Random random;
     Coin[] coins;
     Monster[] monsters;
+    HashMap<String, Warp> warps;
     Player player;
 
     public World(int s, long seed) {
@@ -26,6 +28,7 @@ public class World implements Serializable{
         random = new Random(seed);
         coins = new Coin[5]; //Value can be changed later//
         monsters = new Monster[20]; //Default value: can be changed later //
+        warps = new HashMap();
     }
 
     public World(int s, long seed, int coins, int monsters) {
@@ -171,6 +174,26 @@ public class World implements Serializable{
             for (int y = 0; y < size; y += 1) {
                 if (shouldBeWall(x, y)) {
                     world[x][y] = Tileset.WALL;
+                }
+            }
+        }
+    }
+
+    public void warpFlash() {
+        for (Warp w : warps.values()) {
+            for (int x = w.xStart; x <= w.xEnd; x += 1) {
+                for (int y = w.yStart; y <= w.yEnd; y += 1) {
+                    world[x][y] = Tileset.FLASH;
+                }
+            }
+        }
+    }
+
+    public void warpUnflash() {
+        for (Warp w : warps.values()) {
+            for (int x = w.xStart; x <= w.xEnd; x += 1) {
+                for (int y = w.yStart; y <= w.yEnd; y += 1) {
+                    world[x][y] = Tileset.SAND;
                 }
             }
         }
