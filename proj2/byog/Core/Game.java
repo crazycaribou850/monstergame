@@ -266,7 +266,7 @@ public class Game implements Serializable{
         int projectedX = thing.xPos + horz;
         int projectedY = thing.yPos + vert;
 
-        if (!(this.mainWorld.world[projectedX][projectedY].equals(Tileset.WALL)) && !(this.mainWorld.world[projectedX][projectedY].equals(Tileset.MONSTER))) {
+        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall")) && !(this.mainWorld.world[projectedX][projectedY].description.equals("IM GONNA GET U"))) {
             this.mainWorld.world[thing.xPos][thing.yPos] = thing.current;
             thing.xPos += horz;
             thing.yPos += vert;
@@ -280,7 +280,7 @@ public class Game implements Serializable{
     void moveCharacter(int horz, int vert) {
         int projectedX = this.mainWorld.player.xPos + horz;
         int projectedY = this.mainWorld.player.yPos + vert;
-        if (!(this.mainWorld.world[projectedX][projectedY].equals(Tileset.WALL)) && !(this.mainWorld.world[projectedX][projectedY].equals(Tileset.NOTHING))) {
+        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall")) && !(this.mainWorld.world[projectedX][projectedY].description.equals("nothing"))) {
             if (this.mainWorld.player.current == Tileset.COIN) {
                 this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = Tileset.FLOOR;
             }
