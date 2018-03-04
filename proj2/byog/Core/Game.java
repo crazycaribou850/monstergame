@@ -385,7 +385,8 @@ public class Game implements Serializable{
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
-
+        Game newgame = new Game();
+        newgame.startScreen();
     }
 
     /**
