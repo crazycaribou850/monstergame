@@ -168,6 +168,9 @@ public class Game implements Serializable{
             mainWorld.monsters[i].insertMonster(mainWorld);
         }
 
+        new Warp(mainWorld, "w1");
+        new Warp(mainWorld, "w2",HEIGHT / 2);
+
         gameLoop();
     }
 
@@ -245,6 +248,9 @@ public class Game implements Serializable{
         else if (key == 'A' || key == 'a') {
             moveCharacter(-1, 0);
         }
+        else if (key == 'O' || key == 'o') {
+            warp();
+        }
         else if (key == ':') {
             while (true)  {
                 if (!StdDraw.hasNextKeyTyped()) {
@@ -295,6 +301,58 @@ public class Game implements Serializable{
             this.mainWorld.world[projectedX][projectedY] = this.mainWorld.player.type;
         }
     }
+
+    void warp() {
+        World world = this.mainWorld;
+        TETile[][] worldTiles = world.world;
+        Player p = world.player;
+
+        if (world.player.current.description.equals("warp")) {
+
+            //Identify which Warp the Player is in
+            Warp oldWarp = whichWarpIn(p);
+            Warp newWarp = null;
+
+            //Find another Warp
+            for (Warp w: world.warps.values()) {
+                if (w.equals(oldWarp)) {
+                    continue;
+                }
+                newWarp = w;
+            }
+
+            mainWorld.warpFlash();
+            ter.renderFrame(this.mainWorld.world);
+
+            StdDraw.pause(400);
+
+            this.mainWorld.warpUnflash();
+
+            //Spawn player in bottom left of the new Warp
+            worldTiles[newWarp.xStart][newWarp.yStart] = p.type;
+            p.xPos = newWarp.xStart;
+            p.yPos = newWarp.yStart;
+
+            ter.renderFrame(this.mainWorld.world);
+
+        } //do nothing if Player not in Warp
+        return;
+    }
+
+    /** returns which Warp player is in */
+    Warp whichWarpIn(Player p) {
+        int pX = p.xPos;
+        int pY = p.yPos;
+
+        for (Warp w : mainWorld.warps.values()) {
+            if (pX >= w.xStart && pX <= w.xEnd
+                    && pY >= w.yStart && pY <= w.yEnd) {
+                return w;
+            }
+        }
+        return null; //Player's not in a warp
+    }
+
 
     //############################   END OF MAIN GAME CODE   #######################################\\
     //##############################################################################################\\
