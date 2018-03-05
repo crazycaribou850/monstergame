@@ -30,12 +30,14 @@ public class TETile implements Serializable {
     private final String filepath;
     public TETile previous;
 
-    String description; // Made public and mutable for HUD
+
+    String description;
     public byog.Core.Monster inhabitant;
 
     public Color textColor() {
         return this.textColor;
     }
+
 
     /**
      * Full constructor for TETile objects.

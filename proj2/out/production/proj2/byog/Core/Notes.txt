@@ -11,7 +11,8 @@ Bugs observed:
 1) Monsters are invisible immediately after warping
 2) Missing coins in some maps
 3) Warp always sends player to bottom left tile of warp zone - is this a conscious decision?
-
+    (Mao: Yes. For the simplest implementation I just warped into bottom left.
+    i.e. I was lazy)
 
 Mao 03/04/ 12:00
 Fixing bugs:
