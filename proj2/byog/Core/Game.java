@@ -22,6 +22,7 @@ public class Game implements Serializable{
     int midWidth = WIDTH/2;
     int midHeight = HEIGHT/2;
     int seed;
+    int colon = 0;
     World mainWorld;
 
     //*************************** DRAW METHODS ********************************\\
@@ -99,7 +100,6 @@ public class Game implements Serializable{
                 this.mainWorld = new World(WIDTH, this.seed);
                 StdDraw.pause(300);
                 startGame();
-                drawGameOverFrame(); // For test purposes
                 return;
             }
             if (userInput == 'L' || userInput == 'l') {
@@ -150,27 +150,30 @@ public class Game implements Serializable{
 
 
     // Initializes the real game. This is where the bulk of the action happens. //
-    public void startGame() {
-        mainWorld.generateWorld(70, 20);
+    public void initializeGame() {
+        this.mainWorld.generateWorld(70, 20);
         TETile[][] worldFrame = mainWorld.world;
 
         Player p = new Player(this);
         p.insertPlayer(mainWorld);
-        mainWorld.player = p;
+        this.mainWorld.player = p;
 
-        for (int i = 0; i < mainWorld.coins.length; i++) {
-            mainWorld.coins[i] = new Coin();
-            mainWorld.coins[i].insertCoin(mainWorld);
+        for (int i = 0; i < this.mainWorld.coins.length; i++) {
+            this.mainWorld.coins[i] = new Coin();
+            this.mainWorld.coins[i].insertCoin(mainWorld);
         }
 
         new Warp(mainWorld, "w1");
         new Warp(mainWorld, "w2",HEIGHT / 2);
 
-        for (int i = 0; i < mainWorld.monsters.length; i++) {
-            mainWorld.monsters[i] = new Monster(mainWorld.random.nextInt(5), this);
-            mainWorld.monsters[i].insertMonster(mainWorld);
+        for (int i = 0; i < this.mainWorld.monsters.length; i++) {
+            this.mainWorld.monsters[i] = new Monster(mainWorld.random.nextInt(5), this);
+            this.mainWorld.monsters[i].insertMonster(mainWorld);
         }
+    }
 
+    public void startGame() {
+        initializeGame();
         gameLoop();
     }
 
@@ -192,7 +195,7 @@ public class Game implements Serializable{
             }
             char key = StdDraw.nextKeyTyped();
             controller(key);
-
+            if (colon > 0) { colon -=1; }
             ter.renderFrame(worldFrame);
             HUD_update(tileType, this.mainWorld.player.coins); //
             check_win_conditions();
@@ -253,20 +256,16 @@ public class Game implements Serializable{
         else if (key == 'O' || key == 'o') {
             warp();
         }
-        else if (key == ':') {
-            while (true)  {
-                if (!StdDraw.hasNextKeyTyped()) {
-                    continue;
-                }
-                char newkey = StdDraw.nextKeyTyped();
-                if (newkey == 'Q' || newkey == 'q') {
-                    saveGame(this);
-                    System.exit(1);
-                }
-                controller(newkey);
-                return;
+        else if (key == 'Q' || key == 'q') {
+            if (colon > 0) {
+                saveGame(this);
+                gameOver = true;
             }
         }
+        else if (key == ':') {
+                colon += 2;
+        }
+
     }
 
     void monsterMotion() {
@@ -451,8 +450,7 @@ public class Game implements Serializable{
      * Method used for playing a fresh game. The game should start from the main menu.
      */
     public void playWithKeyboard() {
-        Game newgame = new Game();
-        newgame.startScreen();
+        this.startScreen();
     }
 
     /**
@@ -468,23 +466,42 @@ public class Game implements Serializable{
      * @param input the input string to feed to your program
      * @return the 2D TETile[][] representing the state of the world
      */
+
     public TETile[][] playWithInputString(String input) {
         // Run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
-        long seed = Long.parseLong(Character.toString(input.charAt(1)));
-        int i = 2;
-        while (input.charAt(i) != 's') {
-            seed = 10 * seed + Long.parseLong(Character.toString(input.charAt(i)));
+        if (input.charAt(0) == 'N' || input.charAt(0) == 'n') {
+            long seed = Long.parseLong(Character.toString(input.charAt(1)));
+            int i = 2;
+            while (input.charAt(i) != 's') {
+                seed = 10 * seed + Long.parseLong(Character.toString(input.charAt(i)));
+                i++;
+            }
             i++;
+            this.seed = (int) seed;
+            this.mainWorld = new World(WIDTH, this.seed);
+            this.initializeGame();
+            TETile[][] worldFrame = this.mainWorld.world;
+            for (int n = i; n < input.length(); n++) {
+                char key = input.charAt(n);
+                this.controller(key);
+            }
+            return worldFrame;
         }
-        World myWorld = new World(WIDTH, seed);
-        myWorld.generateWorld(70, 20);
-        TETile[][] finalWorldFrame = myWorld.world;
-        return finalWorldFrame;
+            else if (input.charAt(0) == 'L' || input.charAt(0) == 'l') {
+            Game loadGame = loadGame();
+            int i = 1;
+            for (int n = i; n < input.length(); n++) {
+                char key = input.charAt(n);
+                loadGame.controller(key);
+            }
+            TETile[][] worldFrame = loadGame.mainWorld.world;
+            return worldFrame;
+            }
+
+            else {return null;}
     }
-
-
 
     public static void main(String[] args) {
 

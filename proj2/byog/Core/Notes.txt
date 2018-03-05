@@ -6,6 +6,13 @@
     communication between creators.
 
 -------------------------------------------------------
+MJ 03/04 1438hrs
+Bugs observed:
+1) Monsters are invisible immediately after warping
+2) Missing coins in some maps
+3) Warp always sends player to bottom left tile of warp zone - is this a conscious decision?
+
+
 Mao 03/04/ 12:00
 Fixing bugs:
 1) Seed 999: One tile in each warp gets erased after first move

@@ -1,13 +1,21 @@
 package byog.Core;
-
-import byog.Core.Game;
+import byog.TileEngine.*;
 
 public class TestGame {
-    public static void basicTest() {
+    public static void playWithInputStringTest() {
         Game newgame = new Game();
-        newgame.ter.initialize(50, 50);
+        TETile[][] world = newgame.playWithInputString("N1219s");
+        newgame.ter.initialize(newgame.WIDTH, newgame.HEIGHT + 4);
+        newgame.ter.renderFrame(world);
+        //newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
+    }
 
-        newgame.ter.renderFrame(newgame.playWithInputString("N1219s"));
+    public static void playWithInputStringTest2() {
+        Game newgame = new Game();
+        newgame.playWithInputString("N1219s:Q");
+        TETile[][] world2 = newgame.playWithInputString("Lwdwd");
+        newgame.ter.initialize(newgame.WIDTH, newgame.HEIGHT + 4);
+        newgame.ter.renderFrame(world2);
         //newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
     }
 
@@ -22,9 +30,14 @@ public class TestGame {
         newgame.startScreen();
     }
 
+    public static void playWithKeyboardInputTest() {
+        Game newgame = new Game();
+        newgame.playWithKeyboard();
+    }
     public static void main(String[] args) {
-        //* basicTest(); // Works swell.
+        //playWithInputStringTest2(); // Works swell.
         //* drawStartFrameTest(); //Works swell
-        startScreenTest();
+        //startScreenTest();
+        playWithKeyboardInputTest();
     }
 }

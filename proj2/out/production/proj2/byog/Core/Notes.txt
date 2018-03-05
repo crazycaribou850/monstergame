@@ -6,6 +6,13 @@
     communication between creators.
 
 -------------------------------------------------------
+MJ 03/04 1438hrs
+Bugs observed:
+1) Monsters are invisible immediately after warping
+2) Missing coins in some maps
+3) Warp always sends player to bottom left tile of warp zone - is this a conscious decision?
+
+
 Mao 03/04/ 12:00
 Fixing bugs:
 1) Seed 999: One tile in each warp gets erased after first move
@@ -18,6 +25,7 @@ Fixing bugs:
     and call this in controller() under WASD.
     Deleted for loop that moves Monsters in gameLoop()
         This way any other key(s) we want to add won't move Monsters either
+To-do: Play game from Terminal rather than TestGame.java
 
 Mao 03/03/18 19:00
 Warps.java:
