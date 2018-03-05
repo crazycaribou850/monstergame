@@ -19,11 +19,12 @@ public class Monster implements Serializable {
     public Monster(int atk, Game g) {
         xPos = -1;
         yPos = -1;
-        type = Tileset.MONSTER;
+        type = Tilespawn.spawnMonster();
         current = null;
         dead = false;
         this.game = g;
         this.atk = atk;
+        this.type.inhabitant = this;
     }
 
     public void insertMonster(World myWorld) {
@@ -36,7 +37,7 @@ public class Monster implements Serializable {
             // Ensures that monsters do not spawn within 1 tile of Player.
             if ((worldArray[randX][randY].description().equals("floor"))) {
                 this.current = worldArray[randX][randY];
-                worldArray[randX][randY] = type;
+                worldArray[randX][randY] = this.type;
                 xPos = randX;
                 yPos = randY;
                 return;
@@ -52,5 +53,11 @@ public class Monster implements Serializable {
             game.gameOver = true;
         }
         return;
+    }
+
+    public void takeDamage() {
+        this.dead = true;
+        this.world.world[xPos][yPos] = current;
+        this.world.deathtoll += 1;
     }
 }

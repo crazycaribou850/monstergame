@@ -18,12 +18,12 @@ import java.io.Serializable;
  */
 
 public class Tileset implements Serializable {
-    public static final TETile PLAYER = new TETile('@', Color.blue,
+    public static final TETile PLAYER = new TETile('☺', Color.blue,
             new Color(128, 192, 128), "player");
-    public static final TETile WALL = new TETile('#', new Color(216, 128, 128), Color.darkGray,
+    public static final TETile WALL = new TETile('⛩', new Color(216, 128, 128), Color.darkGray,
             "wall");
     public static final TETile FLOOR = new TETile('·',
-            new Color(128, 192, 128), new Color(128, 192, 128),
+            Color.white, new Color(128, 192, 128),
             "floor");
     public static final TETile NOTHING = new TETile(' ', Color.black, Color.black, "nothing");
     public static final TETile GRASS = new TETile('"', Color.green, Color.black, "grass");
@@ -42,6 +42,8 @@ public class Tileset implements Serializable {
             Color.black, Color.red, "IM GONNA GET U");
     public static final TETile FLASH = new TETile('!',
             Color.white, Color.red, "flash");
+    public static final TETile FIRE = new TETile('❀', Color.orange, Color.red, "fire");
+    public static final TETile BOMB = new TETile('☢', Color.black, Color.yellow, "bomb");
 }
 
 

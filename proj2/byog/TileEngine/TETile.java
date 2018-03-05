@@ -23,12 +23,19 @@ import byog.Core.RandomUtils;
  */
 
 public class TETile implements Serializable {
+
     private final char character; // Do not rename character or the autograder will break.
     private final Color textColor;
     private final Color backgroundColor;
     private final String filepath;
+    public TETile previous;
 
     String description; // Made public and mutable for HUD
+    public byog.Core.Monster inhabitant;
+
+    public Color textColor() {
+        return this.textColor;
+    }
 
     /**
      * Full constructor for TETile objects.
@@ -76,6 +83,15 @@ public class TETile implements Serializable {
      */
     public TETile(TETile t, Color textColor) {
         this(t.character, textColor, t.backgroundColor, t.description, t.filepath);
+    }
+
+    public TETile(TETile prev, TETile t) {
+        this.character = t.character;
+        this.textColor = t.textColor;
+        this.backgroundColor = t.backgroundColor;
+        this.description = t.description;
+        this.filepath = null;
+        this.previous = prev;
     }
 
 

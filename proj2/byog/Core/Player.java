@@ -15,6 +15,7 @@ public class Player implements Serializable {
     World world;
     TETile type;
     TETile current;
+    int bombs;
     String description = "PERSON";
 
     public Player(Game g) {
@@ -25,6 +26,7 @@ public class Player implements Serializable {
         coins = 0;
         dead = false;
         this.game = g;
+        bombs = 5;
     }
 
     public Player(int i, Game g) {
@@ -64,6 +66,50 @@ public class Player implements Serializable {
         }
     }
 
+    public void playerAttack() {
+        bombs -= 1;
+        for (int x = yPos; x >= yPos - coins; x--) {
+            if (world.world[xPos][x].description().equals("IM GONNA GET U")) {
+                world.world[xPos][x].inhabitant.takeDamage();
+            }
+            else if (world.world[xPos][x].description().equals("wall")) {
+                break;
+            }
+        }
+        for (int x = yPos; x <= yPos + coins; x++) {
+            if (world.world[xPos][x].description().equals("IM GONNA GET U")) {
+                world.world[xPos][x].inhabitant.takeDamage();
+            }
+            else if (world.world[xPos][x].description().equals("wall")) {
+                break;
+            }
+        }
+        for (int x = xPos; x >= xPos - coins; x--) {
+            if (world.world[x][yPos].description().equals("IM GONNA GET U")) {
+                world.world[x][yPos].inhabitant.takeDamage();
+            }
+            else if (world.world[x][yPos].description().equals("wall")) {
+                break;
+            }
+        }
+        for (int x = xPos; x <= xPos + coins; x++) {
+            if (world.world[x][yPos].description().equals("IM GONNA GET U")) {
+                world.world[x][yPos].inhabitant.takeDamage();
+            }
+            else if (world.world[x][yPos].description().equals("wall")) {
+                break;
+            }
+        }
+        for (int y = yPos-1; y <= yPos+1; y += 2) {
+            for (int x = xPos-1; x <= xPos+1; x += 2) {
+                if (this.world.world[x][y].description().equals("IM GONNA GET U")) {
+                    this.world.world[x][y].inhabitant.takeDamage();
+                }
+            }
+        }
+
+    }
+
     public void interaction(TETile tile) {
         if (tile.description().equals("floor")) {
             return;
@@ -74,6 +120,9 @@ public class Player implements Serializable {
         if (tile.description().equals("IM GONNA GET U")) {
             this.dead = true;
             game.gameOver = true;
+        }
+        if (tile.description().equals("bomb")) {
+            this.bombs += 1;
         }
         return;
     }

@@ -2,24 +2,17 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
-
 import java.io.Serializable;
 
-public class Hallway implements Serializable {
-    /**
-     * always plots left and upwards
-     */
+public class Hallway implements Serializable{
+    /** always plots left and upwards */
     TETile type;
     TETile[] horizontal;
     TETile[] vertical;
 
-    /**
-     * the x coordinate of the middle of the lefter object
-     */
+    /** the x coordinate of the middle of the lefter object */
     int xInitial;
-    /**
-     * the y coordinate of the middle of the downer object
-     */
+    /** the y coordinate of the middle of the downer object */
     int yInitial;
 
     int xFinal;
@@ -27,9 +20,7 @@ public class Hallway implements Serializable {
     int xLength;
     int yLength;
 
-    /**
-     * builds a hallway to be placed at location
-     */
+    /** builds a hallway to be placed at location */
     public Hallway(Room A, Room B, TETile type) {
         xInitial = Math.min(A.center[0], B.center[0]);
         yInitial = Math.min(A.center[1], B.center[1]);

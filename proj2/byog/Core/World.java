@@ -18,6 +18,8 @@ public class World implements Serializable {
     Random random;
     Coin[] coins;
     Monster[] monsters;
+    int deathtoll;
+    Bomb[] bombs;
     HashMap<String, Warp> warps;
     Player player;
 
@@ -28,8 +30,10 @@ public class World implements Serializable {
         prevprev = null;
         failures = 0;
         random = new Random(seed);
-        coins = new Coin[5]; //Value can be changed later//
+        coins = new Coin[10]; //Value can be changed later//
+        bombs = new Bomb[10];
         monsters = new Monster[20]; //Default value: can be changed later //
+        deathtoll = 0;
         warps = new HashMap();
     }
 

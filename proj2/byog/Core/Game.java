@@ -47,10 +47,14 @@ public class Game implements Serializable {
         /* Clears the frame and draws a new one using the stdDraw library tools */
         Font bigFont = new Font("Monaco", Font.BOLD, 50);
         Font smallFont = new Font("Monaco", Font.BOLD, 30);
+        Font bigbigFont = new Font("Monaco", Font.BOLD, 80);
+        StdDraw.setFont(bigbigFont);
+        StdDraw.setPenColor(Color.green);
+        StdDraw.text(midWidth, midHeight * (1.5), "☣");
         StdDraw.setFont(bigFont);
-        StdDraw.setPenColor(Color.white);
-        StdDraw.text(midWidth, midHeight * (1.25), "GAME TITLE HERE");
+        StdDraw.text(midWidth, midHeight * (1.25), "Monster Mansion");
         StdDraw.setFont(smallFont);
+        StdDraw.setPenColor(Color.white);
         StdDraw.text(midWidth, midHeight, "New Game (N)");
         StdDraw.text(midWidth, midHeight - 2.5, "Load Game (L)");
         StdDraw.text(midWidth, midHeight - 5, "Quit (Q)");
@@ -61,7 +65,12 @@ public class Game implements Serializable {
     public void drawGameOverFrame() {
         StdDraw.clear(Color.BLACK);
         Font bigFont = new Font("Monaco", Font.BOLD, 50);
+        Font bigbigFont = new Font("Monaco", Font.BOLD, 80);
         Font normalFont = new Font("Monaco", Font.BOLD, 25);
+        StdDraw.setFont(bigbigFont);
+        StdDraw.setPenColor(Color.yellow);
+        StdDraw.text(midWidth, midHeight * (1.6), "⚠");
+        StdDraw.setPenColor(Color.red);
         StdDraw.setFont(bigFont);
         StdDraw.setPenColor(Color.red);
         StdDraw.text(midWidth, midHeight * (1.25), "GAME OVER");
@@ -81,7 +90,23 @@ public class Game implements Serializable {
         StdDraw.text(midWidth, midHeight * (1.3), "YOU WIN!");
         StdDraw.setFont(normalFont);
         StdDraw.text(midWidth, midHeight, "YOU ARE CHAMPION COIN COLLECTOR");
-        StdDraw.text(midWidth, midHeight * 0.9, "AND MASTER MONSTER EVADER");
+        StdDraw.text(midWidth, midHeight * 0.9, "AND MASTER MONSTER MASHER");
+        StdDraw.show();
+    }
+
+    public void drawWin2Frame() {
+        StdDraw.clear(Color.BLACK);
+        Font bigFont = new Font("Monaco", Font.BOLD, 80);
+        Font normalFont = new Font("Monaco", Font.BOLD, 20);
+        StdDraw.setFont(normalFont);
+        StdDraw.setPenColor(Color.green);
+        StdDraw.text(midWidth, midHeight * (1.5), "CONGRATS!");
+        StdDraw.text(midWidth, midHeight * (1.3), "YOU ARE MASTER OF NONVIOLENCE!");
+        StdDraw.setFont(bigFont);
+        StdDraw.setPenColor(Color.red);
+        StdDraw.text(midWidth, midHeight, "♥");
+        StdDraw.setPenColor(Color.green);
+        StdDraw.text(midWidth, midHeight*0.7, "Ghandi would be proud :')");
         StdDraw.show();
     }
 
@@ -170,6 +195,11 @@ public class Game implements Serializable {
             this.mainWorld.coins[i].insertCoin(mainWorld);
         }
 
+        for (int i = 0; i < this.mainWorld.bombs.length; i++) {
+            this.mainWorld.bombs[i] = new Bomb();
+            this.mainWorld.bombs[i].insertBomb(mainWorld);
+        }
+
         for (int i = 0; i < this.mainWorld.monsters.length; i++) {
             this.mainWorld.monsters[i] = new Monster(mainWorld.random.nextInt(5), this);
             this.mainWorld.monsters[i].insertMonster(mainWorld);
@@ -216,6 +246,15 @@ public class Game implements Serializable {
     // Only one has been identified so far, but we can edit this method if we think of more//
     void checkWinConditions() {
         if (this.mainWorld.coins.length == this.mainWorld.player.coins) {
+            if (this.mainWorld.deathtoll == 0) {
+                drawWin2Frame();
+                StdDraw.pause(10000);
+            }
+            drawWinFrame();
+            StdDraw.pause(10000);
+            System.exit(2);
+        }
+        if (this.mainWorld.deathtoll == this.mainWorld.monsters.length) {
             drawWinFrame();
             StdDraw.pause(10000);
             System.exit(2);
@@ -264,13 +303,21 @@ public class Game implements Serializable {
             }
         } else if (key == ':') {
             colon += 2;
+        } else if (key == 'j' || key == 'J') {
+            if (this.mainWorld.player.bombs > 0) {
+                this.mainWorld.player.playerAttack();
+                playerAttackAnimation();
+                monsterMotion();
+            }
         }
 
     }
 
     void monsterMotion() {
         for (Monster x : mainWorld.monsters) {
-            randomMove(x);
+            if (!x.dead) {
+                randomMove(x);
+            }
         }
     }
 
@@ -299,9 +346,11 @@ public class Game implements Serializable {
         if (!(this.mainWorld.world[projectedX][projectedY].description().equals("wall"))
                 &&
                 !(this.mainWorld.world[projectedX][projectedY].description().equals("nothing"))) {
-            if (this.mainWorld.player.current.description().equals("coin")) {
+            if (this.mainWorld.player.current.description().equals("coin") ||
+                    this.mainWorld.player.current.description().equals("bomb")) {
                 this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos]
                         = Tileset.FLOOR;
+
             } else {
                 this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos]
                         = this.mainWorld.player.current;
@@ -378,16 +427,16 @@ public class Game implements Serializable {
         StdDraw.setPenColor(Color.white);
         StdDraw.line(0, HEIGHT + 0.25, WIDTH, HEIGHT + 0.25);
 
-        Font font = new Font("Calibri", Font.ITALIC, 22);
+        Font font = new Font("Calibri", Font.ITALIC, 20);
         StdDraw.setFont(font);
 
-        StdDraw.text(midWidth, HEIGHT + 2, "The M&M Game");
+        StdDraw.text(midWidth, HEIGHT + 3, "The M&M Game");
 
         font = new Font("Monaco", Font.PLAIN, 14);
         StdDraw.setFont(font);
         StdDraw.textLeft(1, HEIGHT + 1, "Coins: " + coins);
-
-        StdDraw.textRight(WIDTH - 4, HEIGHT + 1, type);
+        StdDraw.text(midWidth, HEIGHT + 1, type);
+        StdDraw.textRight(WIDTH - 4, HEIGHT + 1, "Bombs: " + this.mainWorld.player.bombs);
 
         //Set back to original so TETile characters don't change
         font = new Font("Monaco", Font.BOLD, 14);
@@ -408,6 +457,92 @@ public class Game implements Serializable {
         } else {
             return "None";
         }
+    }
+
+    public boolean burnable(TETile t) {
+        if (t.description().equals("floor") ||
+                t.description().equals("warp") ||
+                t.description().equals("coin")) {
+            return true;
+        }
+        else {return false;}
+    }
+    public void burnX(int i) {
+        Player p = this.mainWorld.player;
+        for (int x = p.xPos; x >= p.xPos - i; x--) {
+            if (burnable(p.world.world[x][p.yPos])) {
+                p.world.world[x][p.yPos] = new TETile(this.mainWorld.world[x][p.yPos], Tileset.FIRE);
+            }
+            else if (p.world.world[x][p.yPos].description().equals("wall")) {
+                break;
+            }
+        }
+        for (int x = p.xPos; x <= p.xPos + i; x++) {
+            if (burnable(p.world.world[x][p.yPos])) {
+                p.world.world[x][p.yPos] = new TETile(this.mainWorld.world[x][p.yPos], Tileset.FIRE);
+            }
+            else if (p.world.world[x][p.yPos].description().equals("wall")) {
+                break;
+            }
+        }
+    }
+
+    public void burnY(int i) {
+        Player p = this.mainWorld.player;
+        for (int x = p.yPos; x >= p.yPos - i; x--) {
+            if (burnable(p.world.world[p.xPos][x])) {
+                p.world.world[p.xPos][x] = new TETile(this.mainWorld.world[p.xPos][x], Tileset.FIRE);
+            }
+            else if (p.world.world[p.xPos][x].description().equals("wall")) {
+                break;
+            }
+        }
+        for (int x = p.yPos; x <= p.yPos + i; x++) {
+            if (burnable(p.world.world[p.xPos][x])) {
+                p.world.world[p.xPos][x] = new TETile(this.mainWorld.world[p.xPos][x], Tileset.FIRE);
+            }
+            else if (p.world.world[p.xPos][x].description().equals("wall")) {
+                break;
+            }
+        }
+    }
+    public void playerAttackAnimation() {
+        burnX(this.mainWorld.player.coins);
+        burnY(this.mainWorld.player.coins);
+        for (int y = this.mainWorld.player.yPos - 1; y <= this.mainWorld.player.yPos + 1; y += 2) {
+            for (int x = mainWorld.player.xPos - 1; x <= mainWorld.player.xPos + 1; x += 2) {
+                if (this.mainWorld.world[x][y].description().equals("floor") ||
+                        this.mainWorld.world[x][y].description().equals("warp") ||
+                        this.mainWorld.world[x][y].description().equals("coin")) {
+                    this.mainWorld.world[x][y] = new TETile(this.mainWorld.world[x][y], Tileset.FIRE);
+                }
+            }
+        }
+        ter.renderFrame(this.mainWorld.world);
+        StdDraw.pause(200);
+        for (int x = this.mainWorld.player.xPos - this.mainWorld.player.coins; x <= this.mainWorld.player.xPos + this.mainWorld.player.coins; x++) {
+            if (x > 0 && x < this.WIDTH) {
+                if (this.mainWorld.world[x][this.mainWorld.player.yPos].description().equals("fire")) {
+                    this.mainWorld.world[x][this.mainWorld.player.yPos] = this.mainWorld.world[x][this.mainWorld.player.yPos].previous;
+                }
+            }
+        }
+        for (int y = this.mainWorld.player.yPos - this.mainWorld.player.coins; y <= this.mainWorld.player.yPos + this.mainWorld.player.coins; y++) {
+            if (y > 0 && y < this.WIDTH) {
+                if (this.mainWorld.world[this.mainWorld.player.xPos][y].description().equals("fire")) {
+                    this.mainWorld.world[this.mainWorld.player.xPos][y] = this.mainWorld.world[this.mainWorld.player.xPos][y].previous;
+                }
+            }
+        }
+        for (int y = this.mainWorld.player.yPos - 1; y <= this.mainWorld.player.yPos + 1; y += 2) {
+            for (int x = mainWorld.player.xPos - 1; x <= mainWorld.player.xPos + 1; x += 2) {
+                if (this.mainWorld.world[x][y].description().equals("fire")) {
+                    this.mainWorld.world[x][y] = this.mainWorld.world[x][y].previous;
+                }
+            }
+        }
+        ter.renderFrame(this.mainWorld.world);
+
     }
 
     /***************************************************/

@@ -6,16 +6,16 @@ import byog.TileEngine.Tileset;
 import java.io.Serializable;
 import java.util.Random;
 
-public class Coin implements Serializable {
+public class Bomb implements Serializable {
     int value = 1;
     int xPos = -1;
     int yPos = -1;
-    TETile type;
+    TETile type = Tileset.BOMB;
     TETile current = null;
     World world;
 
 
-    public void insertCoin(World myWorld) {
+    public void insertBomb(World myWorld) {
         TETile[][] worldArray = myWorld.world;
         Random rand = myWorld.random;
         this.world = myWorld;
@@ -25,7 +25,7 @@ public class Coin implements Serializable {
 
             if (worldArray[randX][randY].description().equals("floor")) {
                 this.current = worldArray[randX][randY];
-                worldArray[randX][randY] = Tilespawn.spawnCoin();
+                worldArray[randX][randY] = type;
                 xPos = randX;
                 yPos = randY;
                 return;
