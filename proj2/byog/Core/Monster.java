@@ -1,6 +1,7 @@
 package byog.Core;
 
-import byog.TileEngine.*;
+import byog.TileEngine.TETile;
+import byog.TileEngine.Tileset;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -26,16 +27,16 @@ public class Monster implements Serializable {
     }
 
     public void insertMonster(World myWorld) {
-        TETile[][] world = myWorld.world;
+        TETile[][] worldArray = myWorld.world;
         Random rand = myWorld.random;
         this.world = myWorld;
         while (xPos < 0) {
-            int randX = RandomUtils.uniform(rand, 0, world[0].length);
-            int randY = RandomUtils.uniform(rand, 0, world[0].length);
+            int randX = RandomUtils.uniform(rand, 0, worldArray[0].length);
+            int randY = RandomUtils.uniform(rand, 0, worldArray[0].length);
             // Ensures that monsters do not spawn within 1 tile of Player.
-            if ((world[randX][randY].description.equals("floor"))) {
-                this.current = world[randX][randY];
-                world[randX][randY] = type;
+            if ((worldArray[randX][randY].description.equals("floor"))) {
+                this.current = worldArray[randX][randY];
+                worldArray[randX][randY] = type;
                 xPos = randX;
                 yPos = randY;
                 return;

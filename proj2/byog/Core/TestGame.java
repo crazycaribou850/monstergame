@@ -1,6 +1,6 @@
 package byog.Core;
 
-import byog.TileEngine.*;
+import byog.TileEngine.TETile;
 
 public class TestGame {
     public static void playWithInputStringTest() {

@@ -1,7 +1,5 @@
 package byog.Core;
 
-import byog.Core.Game;
-import byog.Core.World;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
@@ -122,12 +120,12 @@ public class Warp implements Serializable {
     /**
      * Test if there's a room contained or if it's a hallway
      */
-    public boolean findRoomHelper(int xStart, int yStart, int xEnd, int yEnd) {
-        if (xStart == xEnd || yStart == yEnd) {
+    public boolean findRoomHelper(int xStartx, int yStartx, int xEndx, int yEndx) {
+        if (xStartx == xEndx || yStartx == yEndx) {
             return false;
         }
-        for (int x = xStart; x < xEnd; x += 1) {
-            for (int y = yStart; y < yEnd; y += 1) {
+        for (int x = xStartx; x < xEndx; x += 1) {
+            for (int y = yStartx; y < yEndx; y += 1) {
                 if (wTiles[x][y].description.equals("wall")) {
                     return false;
                 }

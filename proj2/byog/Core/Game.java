@@ -1,6 +1,8 @@
 package byog.Core;
 
-import byog.TileEngine.*;
+import byog.TileEngine.TETile;
+import byog.TileEngine.TERenderer;
+import byog.TileEngine.Tileset;
 import edu.princeton.cs.introcs.StdDraw;
 
 import java.awt.Color;
@@ -145,10 +147,10 @@ public class Game implements Serializable {
             }
         }
     }
-    //*************************** End of Initialization Methods *********************************\\
+    //************** End of Initialization Methods ************\\
 
-    //################################          GAME CODE          ####################################\\
-    //################################  HEAVY LIFTING IS DONE HERE  #####################################\\
+    //#####################          GAME CODE          ###################\\
+    //#####################  HEAVY LIFTING IS DONE HERE  ##################\\
 
 
     // Initializes the real game. This is where the bulk of the action happens. //
@@ -184,13 +186,13 @@ public class Game implements Serializable {
         TETile[][] worldFrame = this.mainWorld.world;
         ter.renderFrame(worldFrame);
         String tileUnderMouse = "";
-        while (gameOver == false) {
+        while (!gameOver) {
             String tileType = readMouse4Tile(mainWorld);
             if (!tileUnderMouse.equals(tileType)) {
                 tileUnderMouse = tileType;
                 StdDraw.clear(Color.BLACK);
                 ter.renderFrame(worldFrame);
-                HUD_update(tileType, this.mainWorld.player.coins);
+                hudUpdate(tileType, this.mainWorld.player.coins);
             }
             if (!StdDraw.hasNextKeyTyped()) {
                 continue;
@@ -201,8 +203,8 @@ public class Game implements Serializable {
                 colon -= 1;
             }
             ter.renderFrame(worldFrame);
-            HUD_update(tileType, this.mainWorld.player.coins); //
-            check_win_conditions();
+            hudUpdate(tileType, this.mainWorld.player.coins); //
+            checkWinConditions();
             continue;
         }
         drawGameOverFrame();
@@ -212,7 +214,7 @@ public class Game implements Serializable {
 
     // Function to check if any win conditions have been met //
     // Only one has been identified so far, but we can edit this method if we think of more//
-    void check_win_conditions() {
+    void checkWinConditions() {
         if (this.mainWorld.coins.length == this.mainWorld.player.coins) {
             drawWinFrame();
             StdDraw.pause(10000);
@@ -277,7 +279,9 @@ public class Game implements Serializable {
         int projectedX = thing.xPos + horz;
         int projectedY = thing.yPos + vert;
 
-        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall")) && !(this.mainWorld.world[projectedX][projectedY].description.equals("IM GONNA GET U"))) {
+        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall"))
+                && !(this.mainWorld.world[projectedX][projectedY].
+                description.equals("IM GONNA GET U"))) {
             this.mainWorld.world[thing.xPos][thing.yPos] = thing.current;
             thing.xPos += horz;
             thing.yPos += vert;
@@ -292,11 +296,15 @@ public class Game implements Serializable {
         int projectedX = this.mainWorld.player.xPos + horz;
         int projectedY = this.mainWorld.player.yPos + vert;
 
-        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall")) && !(this.mainWorld.world[projectedX][projectedY].description.equals("nothing"))) {
+        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall"))
+                &&
+                !(this.mainWorld.world[projectedX][projectedY].description.equals("nothing"))) {
             if (this.mainWorld.player.current.description.equals("coin")) {
-                this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = Tileset.FLOOR;
+                this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos]
+                        = Tileset.FLOOR;
             } else {
-                this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = this.mainWorld.player.current;
+                this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos]
+                        = this.mainWorld.player.current;
             }
             this.mainWorld.player.xPos += horz;
             this.mainWorld.player.yPos += vert;
@@ -360,12 +368,12 @@ public class Game implements Serializable {
     }
 
 
-    //############################   END OF MAIN GAME CODE   #######################################\\
-    //##############################################################################################\\
+    //###################   END OF MAIN GAME CODE   ###################\\
+    //##################################################################\\
 
     /************************ HUD **********************/
 
-    public void HUD_update(String type, int coins) {
+    public void hudUpdate(String type, int coins) {
 
         StdDraw.setPenColor(Color.white);
         StdDraw.line(0, HEIGHT + 0.25, WIDTH, HEIGHT + 0.25);
@@ -475,14 +483,14 @@ public class Game implements Serializable {
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
         if (input.charAt(0) == 'N' || input.charAt(0) == 'n') {
-            long seed = Long.parseLong(Character.toString(input.charAt(1)));
+            long seedi = Long.parseLong(Character.toString(input.charAt(1)));
             int i = 2;
             while (input.charAt(i) != 's') {
-                seed = 10 * seed + Long.parseLong(Character.toString(input.charAt(i)));
+                seedi = 10 * seed + Long.parseLong(Character.toString(input.charAt(i)));
                 i++;
             }
             i++;
-            this.seed = (int) seed;
+            this.seed = (int) seedi;
             this.mainWorld = new World(WIDTH, this.seed);
             this.initializeGame();
             TETile[][] worldFrame = this.mainWorld.world;

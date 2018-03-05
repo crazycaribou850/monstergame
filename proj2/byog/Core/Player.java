@@ -47,16 +47,16 @@ public class Player implements Serializable {
      * Strategy: randomly insert until on Hallway tile
      */
     public void insertPlayer(World myWorld) {
-        TETile[][] world = myWorld.world;
+        TETile[][] worldset = myWorld.world;
         Random rand = myWorld.random;
         this.world = myWorld;
         while (xPos < 0) {
-            int randX = RandomUtils.uniform(rand, 0, world[0].length);
-            int randY = RandomUtils.uniform(rand, 0, world[0].length);
+            int randX = RandomUtils.uniform(rand, 0, worldset[0].length);
+            int randY = RandomUtils.uniform(rand, 0, worldset[0].length);
 
-            if (!(world[randX][randY].description.equals("wall")) && !(world[randX][randY].description.equals("nothing"))) {
-                this.current = world[randX][randY];
-                world[randX][randY] = type;
+            if (worldset[randX][randY].description.equals("floor")) {
+                this.current = worldset[randX][randY];
+                worldset[randX][randY] = type;
                 this.xPos = randX;
                 this.yPos = randY;
                 return;

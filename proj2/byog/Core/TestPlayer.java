@@ -17,6 +17,6 @@ public class TestPlayer {
     }
 
     public static void main(String[] args) {
-        testInsertPlayer();//passes
+        testInsertPlayer(); //passes
     }
 }

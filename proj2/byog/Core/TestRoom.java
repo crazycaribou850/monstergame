@@ -1,6 +1,5 @@
 package byog.Core;
 
-import byog.Core.Room;
 import byog.TileEngine.TERenderer;
 
 public class TestRoom {

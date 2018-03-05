@@ -16,16 +16,16 @@ public class Coin implements Serializable {
 
 
     public void insertCoin(World myWorld) {
-        TETile[][] world = myWorld.world;
+        TETile[][] worldArray = myWorld.world;
         Random rand = myWorld.random;
         this.world = myWorld;
         while (this.xPos < 0) {
-            int randX = RandomUtils.uniform(rand, 0, world[0].length);
-            int randY = RandomUtils.uniform(rand, 0, world[0].length);
+            int randX = RandomUtils.uniform(rand, 0, worldArray[0].length);
+            int randY = RandomUtils.uniform(rand, 0, worldArray[0].length);
 
-            if (world[randX][randY].description == "floor") {
-                this.current = world[randX][randY];
-                world[randX][randY] = type;
+            if (worldArray[randX][randY].description.equals("floor")) {
+                this.current = worldArray[randX][randY];
+                worldArray[randX][randY] = type;
                 xPos = randX;
                 yPos = randY;
                 return;
