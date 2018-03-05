@@ -24,7 +24,7 @@ public class TestGame {
         Game newgame = new Game();
         //TETile[][] world = newgame.playWithInputString("n6547766204324870169ssdswa");
         //TETile [][] world = newgame.playWithInputString(("n1914164012418174419saaadd"));
-        TETile [][] world = newgame.playWithInputString(("n1914164022418174419saaadd"));
+        TETile[][] world = newgame.playWithInputString(("n1914164022418174419saaadd"));
         newgame.ter.initialize(newgame.WIDTH, newgame.HEIGHT + 4);
         newgame.ter.renderFrame(world);
         //newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
@@ -50,8 +50,8 @@ public class TestGame {
         //playWithInputStringTest2();
         //playWithInputStringTest();
         //* drawStartFrameTest();
-        //startScreenTest();
+        startScreenTest();
         //playWithKeyboardInputTest();
-        playWithInputStringTestAG();
+        //playWithInputStringTestAG();
     }
 }
