@@ -11,13 +11,13 @@ import java.io.Serializable;
  * For ambition points
  * Description: a warp room is indicated by WARP tiles. If a player is in a
  * warp room, pressing 'O' will transport them to another warp room.
-
+ * <p>
  * Implementation strategy: after world is generated with rooms/hallways:
-
+ * <p>
  * Warp constructor (creates a warp room)
  * iterate through (starting from bottom left) to find a room (i.e. enclosed
  * by walls), then double for loop to change tile type to WARP.
-
+ * <p>
  * Warp room bottom-left & top-right coordinates will be remembered in a World
  * instance variable to allow interaction
  */
@@ -29,11 +29,15 @@ public class Warp implements Serializable {
     String description = "WARP";
     String name;
 
-    /** bottom left */
+    /**
+     * bottom left
+     */
     int xStart;
     int yStart;
 
-    /** top right */
+    /**
+     * top right
+     */
     int xEnd;
     int yEnd;
 
@@ -67,8 +71,10 @@ public class Warp implements Serializable {
         myWorld.warps.put(name, this);
     }
 
-    /** Returns 4 element int array of coordinates ([startx, starty, endx, endy])
-     * of first room starting at xStart, yStart then searching to the right and up */
+    /**
+     * Returns 4 element int array of coordinates ([startx, starty, endx, endy])
+     * of first room starting at xStart, yStart then searching to the right and up
+     */
     public int[] findRoom(int xinit, int yinit) {
         int[] start = findStart(xinit, yinit);
         xStart = start[0];
@@ -113,7 +119,9 @@ public class Warp implements Serializable {
 
     /****************** Helper Methods ************************/
 
-    /** Test if there's a room contained or if it's a hallway */
+    /**
+     * Test if there's a room contained or if it's a hallway
+     */
     public boolean findRoomHelper(int xStart, int yStart, int xEnd, int yEnd) {
         if (xStart == xEnd || yStart == yEnd) {
             return false;
@@ -128,8 +136,10 @@ public class Warp implements Serializable {
         return true;
     }
 
-    /** Returned array[0], array[1] are x, y coordinates of first FLOOR
-     * tile starting at xinit, yinit then search to the right and up */
+    /**
+     * Returned array[0], array[1] are x, y coordinates of first FLOOR
+     * tile starting at xinit, yinit then search to the right and up
+     */
     public int[] findStart(int xinit, int yinit) {
         for (int y = yinit; y < wTiles[0].length - 1; y += 1) {
             for (int x = xinit; x < wTiles.length - 1; x += 1) {
@@ -142,7 +152,9 @@ public class Warp implements Serializable {
         return null; // = somethings wrong
     }
 
-    /** Returns true if wTiles[x][y] is last FLOOR in row */
+    /**
+     * Returns true if wTiles[x][y] is last FLOOR in row
+     */
     public boolean endOfRow(int xS, int y) {
         for (int x = xS + 2; x < wTiles.length; x += 1) {
             if (!wTiles[x][y].description.equals("nothing")) {

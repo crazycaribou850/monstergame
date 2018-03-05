@@ -2,6 +2,7 @@ package byog.Core;
 
 import byog.TileEngine.*;
 import edu.princeton.cs.introcs.StdDraw;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.io.Serializable;
@@ -13,14 +14,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Game implements Serializable{
+public class Game implements Serializable {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 30;
     public static final int HEIGHT = 30;
     boolean gameOver = false;
-    int midWidth = WIDTH/2;
-    int midHeight = HEIGHT/2;
+    int midWidth = WIDTH / 2;
+    int midHeight = HEIGHT / 2;
     int seed;
     int colon = 0;
     World mainWorld;
@@ -46,11 +47,11 @@ public class Game implements Serializable{
         Font smallFont = new Font("Monaco", Font.BOLD, 30);
         StdDraw.setFont(bigFont);
         StdDraw.setPenColor(Color.white);
-        StdDraw.text(midWidth, midHeight*(1.25), "GAME TITLE HERE");
+        StdDraw.text(midWidth, midHeight * (1.25), "GAME TITLE HERE");
         StdDraw.setFont(smallFont);
         StdDraw.text(midWidth, midHeight, "New Game (N)");
-        StdDraw.text(midWidth, midHeight-2.5, "Load Game (L)");
-        StdDraw.text(midWidth, midHeight-5, "Quit (Q)");
+        StdDraw.text(midWidth, midHeight - 2.5, "Load Game (L)");
+        StdDraw.text(midWidth, midHeight - 5, "Quit (Q)");
         StdDraw.show();
     }
 
@@ -61,7 +62,7 @@ public class Game implements Serializable{
         Font normalFont = new Font("Monaco", Font.BOLD, 25);
         StdDraw.setFont(bigFont);
         StdDraw.setPenColor(Color.red);
-        StdDraw.text(midWidth, midHeight*(1.25), "GAME OVER");
+        StdDraw.text(midWidth, midHeight * (1.25), "GAME OVER");
         StdDraw.setFont(normalFont);
         StdDraw.text(midWidth, midHeight, "The monsters got you!");
         StdDraw.show();
@@ -74,11 +75,11 @@ public class Game implements Serializable{
         Font normalFont = new Font("Monaco", Font.BOLD, 20);
         StdDraw.setFont(bigFont);
         StdDraw.setPenColor(Color.green);
-        StdDraw.text(midWidth, midHeight*(1.5), "CONGRATS!");
-        StdDraw.text(midWidth, midHeight*(1.3), "YOU WIN!");
+        StdDraw.text(midWidth, midHeight * (1.5), "CONGRATS!");
+        StdDraw.text(midWidth, midHeight * (1.3), "YOU WIN!");
         StdDraw.setFont(normalFont);
         StdDraw.text(midWidth, midHeight, "YOU ARE CHAMPION COIN COLLECTOR");
-        StdDraw.text(midWidth, midHeight*0.9,  "AND MASTER MONSTER EVADER");
+        StdDraw.text(midWidth, midHeight * 0.9, "AND MASTER MONSTER EVADER");
         StdDraw.show();
     }
 
@@ -109,8 +110,9 @@ public class Game implements Serializable{
             }
             if (userInput == 'Q' || userInput == 'q') {
                 System.exit(0); //Closes the window
+            } else {
+                continue;
             }
-            else {continue;}
         }
 
     }
@@ -122,7 +124,7 @@ public class Game implements Serializable{
         Font bigFont = new Font("Monaco", Font.BOLD, 40);
         StdDraw.setPenColor(Color.white);
         StdDraw.text(midWidth, midHeight, dispString);
-        StdDraw.text(midWidth, midHeight-3, "Enter a seed# and press s to start");
+        StdDraw.text(midWidth, midHeight - 3, "Enter a seed# and press s to start");
         StdDraw.show();
         char key = ' ';
         String userNumber = "";
@@ -136,7 +138,7 @@ public class Game implements Serializable{
                 dispString += key;
                 StdDraw.clear(Color.BLACK);
                 StdDraw.text(midWidth, midHeight, dispString);
-                StdDraw.text(midWidth, midHeight-3, "Enter a seed# and press s to start");
+                StdDraw.text(midWidth, midHeight - 3, "Enter a seed# and press s to start");
                 StdDraw.show();
             } else if (key == 's' || key == 'S') {
                 return Integer.parseInt(userNumber);
@@ -159,7 +161,7 @@ public class Game implements Serializable{
         this.mainWorld.player = p;
 
         new Warp(mainWorld, "w1");
-        new Warp(mainWorld, "w2",HEIGHT / 2);
+        new Warp(mainWorld, "w2", HEIGHT / 2);
 
         for (int i = 0; i < this.mainWorld.coins.length; i++) {
             this.mainWorld.coins[i] = new Coin();
@@ -195,7 +197,9 @@ public class Game implements Serializable{
             }
             char key = StdDraw.nextKeyTyped();
             controller(key);
-            if (colon > 0) { colon -=1; }
+            if (colon > 0) {
+                colon -= 1;
+            }
             ter.renderFrame(worldFrame);
             HUD_update(tileType, this.mainWorld.player.coins); //
             check_win_conditions();
@@ -240,30 +244,24 @@ public class Game implements Serializable{
         if (key == 'W' || key == 'w') {
             moveCharacter(0, 1);
             monsterMotion();
-        }
-        else if (key == 'S' || key == 's') {
+        } else if (key == 'S' || key == 's') {
             moveCharacter(0, -1);
             monsterMotion();
-        }
-        else if (key == 'D' || key == 'd') {
+        } else if (key == 'D' || key == 'd') {
             moveCharacter(1, 0);
             monsterMotion();
-        }
-        else if (key == 'A' || key == 'a') {
+        } else if (key == 'A' || key == 'a') {
             moveCharacter(-1, 0);
             monsterMotion();
-        }
-        else if (key == 'O' || key == 'o') {
+        } else if (key == 'O' || key == 'o') {
             warp();
-        }
-        else if (key == 'Q' || key == 'q') {
+        } else if (key == 'Q' || key == 'q') {
             if (colon > 0) {
                 saveGame(this);
                 gameOver = true;
             }
-        }
-        else if (key == ':') {
-                colon += 2;
+        } else if (key == ':') {
+            colon += 2;
         }
 
     }
@@ -297,8 +295,7 @@ public class Game implements Serializable{
         if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall")) && !(this.mainWorld.world[projectedX][projectedY].description.equals("nothing"))) {
             if (this.mainWorld.player.current.description.equals("coin")) {
                 this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = Tileset.FLOOR;
-            }
-            else {
+            } else {
                 this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos] = this.mainWorld.player.current;
             }
             this.mainWorld.player.xPos += horz;
@@ -321,7 +318,7 @@ public class Game implements Serializable{
             Warp newWarp = null;
 
             //Find another Warp
-            for (Warp w: world.warps.values()) {
+            for (Warp w : world.warps.values()) {
                 if (w.equals(oldWarp)) {
                     continue;
                 }
@@ -346,7 +343,9 @@ public class Game implements Serializable{
         return;
     }
 
-    /** returns which Warp player is in */
+    /**
+     * returns which Warp player is in
+     */
     Warp whichWarpIn(Player p) {
         int pX = p.xPos;
         int pY = p.yPos;
@@ -369,7 +368,7 @@ public class Game implements Serializable{
     public void HUD_update(String type, int coins) {
 
         StdDraw.setPenColor(Color.white);
-        StdDraw.line(0, HEIGHT +0.25, WIDTH, HEIGHT +0.25);
+        StdDraw.line(0, HEIGHT + 0.25, WIDTH, HEIGHT + 0.25);
 
         Font font = new Font("Calibri", Font.ITALIC, 22);
         StdDraw.setFont(font);
@@ -380,7 +379,7 @@ public class Game implements Serializable{
         StdDraw.setFont(font);
         StdDraw.textLeft(1, HEIGHT + 1, "Coins: " + coins);
 
-        StdDraw.textRight(WIDTH - 4, HEIGHT+1, type);
+        StdDraw.textRight(WIDTH - 4, HEIGHT + 1, type);
 
         //Set back to original so TETile characters don't change
         font = new Font("Monaco", Font.BOLD, 14);
@@ -389,15 +388,18 @@ public class Game implements Serializable{
         StdDraw.show();
     }
 
-    /** returns Tile Type under mouse for given World */
+    /**
+     * returns Tile Type under mouse for given World
+     */
     public static String readMouse4Tile(World myWorld) {
         int x = (int) StdDraw.mouseX(); //Casting rounds down
         int y = (int) StdDraw.mouseY();
         if (y < HEIGHT) {
             String type = myWorld.world[x][y].description;
             return type;
+        } else {
+            return "None";
         }
-        else { return "None"; }
     }
 
     /***************************************************/
@@ -413,7 +415,7 @@ public class Game implements Serializable{
             ObjectOutputStream os = new ObjectOutputStream(fs);
             os.writeObject(g);
             os.close();
-        }  catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("file not found");
             System.exit(0);
         } catch (IOException e) {
@@ -446,6 +448,7 @@ public class Game implements Serializable{
         /* In the case no World has been saved yet, we return a new one. */
         return new Game();
     }
+
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
      */
@@ -488,8 +491,7 @@ public class Game implements Serializable{
                 this.controller(key);
             }
             return worldFrame;
-        }
-            else if (input.charAt(0) == 'L' || input.charAt(0) == 'l') {
+        } else if (input.charAt(0) == 'L' || input.charAt(0) == 'l') {
             Game loadGame = loadGame();
             int i = 1;
             for (int n = i; n < input.length(); n++) {
@@ -498,9 +500,9 @@ public class Game implements Serializable{
             }
             TETile[][] worldFrame = loadGame.mainWorld.world;
             return worldFrame;
-            }
-
-            else {return null;}
+        } else {
+            return null;
+        }
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,5 @@
 package byog.Core;
+
 import byog.TileEngine.*;
 
 public class TestGame {
@@ -34,6 +35,7 @@ public class TestGame {
         Game newgame = new Game();
         newgame.playWithKeyboard();
     }
+
     public static void main(String[] args) {
         //playWithInputStringTest2();
         playWithInputStringTest();

@@ -1,26 +1,35 @@
 package byog.Core;
 
 import java.io.Serializable;
+
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
-public class Room implements Serializable{
+public class Room implements Serializable {
     TETile[][] room;
 
-    /** Tile type for room's perimeter (default: WALL) */
+    /**
+     * Tile type for room's perimeter (default: WALL)
+     */
     TETile pType;
 
-    /** Tile type for room's floors (default: FLOOR) */
+    /**
+     * Tile type for room's floors (default: FLOOR)
+     */
     TETile type;
 
     int width;
     int height;
 
-    /** bottom left */
+    /**
+     * bottom left
+     */
     int latitude;
     int longitude;
 
-    /** center[0], center[1] = latitude, longitude of center */
+    /**
+     * center[0], center[1] = latitude, longitude of center
+     */
     int[] center;
 
     public Room(int w, int h, int lat, int lng) {

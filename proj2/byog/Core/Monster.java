@@ -1,10 +1,11 @@
 package byog.Core;
 
 import byog.TileEngine.*;
+
 import java.io.Serializable;
 import java.util.Random;
 
-public class Monster implements Serializable{
+public class Monster implements Serializable {
     int xPos;
     int yPos;
     int atk;

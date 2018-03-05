@@ -15,6 +15,7 @@ public class TestPlayer {
 
         ter.renderFrame(myWorld.world);
     }
+
     public static void main(String[] args) {
         testInsertPlayer();//passes
     }

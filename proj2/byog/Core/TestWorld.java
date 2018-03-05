@@ -161,7 +161,7 @@ public class TestWorld {
         System.out.println("y1End: " + w1.yEnd);
 
         //create warp2 in upper half
-        Warp w2 = new Warp(myWorld, "w2",15);
+        Warp w2 = new Warp(myWorld, "w2", 15);
         System.out.println("x2Start: " + w2.xStart);
         System.out.println("y2Start: " + w2.yStart);
         System.out.println("x2End: " + w2.xEnd);
@@ -176,7 +176,7 @@ public class TestWorld {
         World myWorld = generateNoRender();
 
         Warp w1 = new Warp(myWorld, "w1");
-        Warp w2 = new Warp(myWorld, "w2",15);
+        Warp w2 = new Warp(myWorld, "w2", 15);
 
         //Warp tiles
         ter.renderFrame(myWorld.world);

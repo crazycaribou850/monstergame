@@ -1,12 +1,14 @@
 package byog.Core;
+
 import java.io.Serializable;
+
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
 import java.util.Random;
 import java.util.HashMap;
 
-public class World implements Serializable{
+public class World implements Serializable {
     TETile[][] world;
     int size;
 

@@ -7,7 +7,9 @@ import edu.princeton.cs.introcs.StdDraw;
 
 public class TestHUD {
 
-    /** Prints out x,y coordinates of mouse in blank canvas */
+    /**
+     * Prints out x,y coordinates of mouse in blank canvas
+     */
     public static void readMouseonCanvas() {
         StdDraw.setCanvasSize(500, 500);
         StdDraw.show();

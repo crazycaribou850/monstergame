@@ -2,10 +2,11 @@ package byog.Core;
 
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
+
 import java.io.Serializable;
 import java.util.Random;
 
-public class Player implements Serializable{
+public class Player implements Serializable {
     int xPos;
     int yPos;
     int coins;
@@ -42,7 +43,9 @@ public class Player implements Serializable{
 //        type = t;
 //    }
 
-    /** Strategy: randomly insert until on Hallway tile */
+    /**
+     * Strategy: randomly insert until on Hallway tile
+     */
     public void insertPlayer(World myWorld) {
         TETile[][] world = myWorld.world;
         Random rand = myWorld.random;
