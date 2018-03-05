@@ -23,7 +23,7 @@ public class Coin implements Serializable {
             int randX = RandomUtils.uniform(rand, 0, worldArray[0].length);
             int randY = RandomUtils.uniform(rand, 0, worldArray[0].length);
 
-            if (worldArray[randX][randY].description.equals("floor")) {
+            if (worldArray[randX][randY].description().equals("floor")) {
                 this.current = worldArray[randX][randY];
                 worldArray[randX][randY] = type;
                 xPos = randX;

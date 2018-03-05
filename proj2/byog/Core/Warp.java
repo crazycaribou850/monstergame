@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * For ambition points
- * Description: a warp room is indicated by WARP tiles. If a player is in a
+ * description(): a warp room is indicated by WARP tiles. If a player is in a
  * warp room, pressing 'O' will transport them to another warp room.
  * <p>
  * Implementation strategy: after world is generated with rooms/hallways:
@@ -85,17 +85,17 @@ public class Warp implements Serializable {
 
         //Find end x-coordinate
         xEnd = xStart;
-        while (!wTiles[xEnd + 1][yStart].description.equals("wall")) {
+        while (!wTiles[xEnd + 1][yStart].description().equals("wall")) {
             xEnd += 1;
         }
         //Fix start y coordinate
-        while (!wTiles[xStart][yStart - 1].description.equals("wall")
-                && !wTiles[xStart][yStart - 1].description.equals("nothing")) {
+        while (!wTiles[xStart][yStart - 1].description().equals("wall")
+                && !wTiles[xStart][yStart - 1].description().equals("nothing")) {
             yStart -= 1;
         }
         //Find end y coordinate
         yEnd = yStart;
-        while (!wTiles[xStart][yEnd + 1].description.equals("wall")) {
+        while (!wTiles[xStart][yEnd + 1].description().equals("wall")) {
             yEnd += 1;
         }
 
@@ -126,7 +126,7 @@ public class Warp implements Serializable {
         }
         for (int x = xStartx; x < xEndx; x += 1) {
             for (int y = yStartx; y < yEndx; y += 1) {
-                if (wTiles[x][y].description.equals("wall")) {
+                if (wTiles[x][y].description().equals("wall")) {
                     return false;
                 }
             }
@@ -141,7 +141,7 @@ public class Warp implements Serializable {
     public int[] findStart(int xinit, int yinit) {
         for (int y = yinit; y < wTiles[0].length - 1; y += 1) {
             for (int x = xinit; x < wTiles.length - 1; x += 1) {
-                if (wTiles[x][y].description.equals("floor")) {
+                if (wTiles[x][y].description().equals("floor")) {
                     int[] toRet = {x, y};
                     return toRet;
                 }
@@ -155,7 +155,7 @@ public class Warp implements Serializable {
      */
     public boolean endOfRow(int xS, int y) {
         for (int x = xS + 2; x < wTiles.length; x += 1) {
-            if (!wTiles[x][y].description.equals("nothing")) {
+            if (!wTiles[x][y].description().equals("nothing")) {
                 return false;
             }
         }

@@ -279,9 +279,9 @@ public class Game implements Serializable {
         int projectedX = thing.xPos + horz;
         int projectedY = thing.yPos + vert;
 
-        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall"))
+        if (!(this.mainWorld.world[projectedX][projectedY].description().equals("wall"))
                 && !(this.mainWorld.world[projectedX][projectedY].
-                description.equals("IM GONNA GET U"))) {
+                description().equals("IM GONNA GET U"))) {
             this.mainWorld.world[thing.xPos][thing.yPos] = thing.current;
             thing.xPos += horz;
             thing.yPos += vert;
@@ -296,10 +296,10 @@ public class Game implements Serializable {
         int projectedX = this.mainWorld.player.xPos + horz;
         int projectedY = this.mainWorld.player.yPos + vert;
 
-        if (!(this.mainWorld.world[projectedX][projectedY].description.equals("wall"))
+        if (!(this.mainWorld.world[projectedX][projectedY].description().equals("wall"))
                 &&
-                !(this.mainWorld.world[projectedX][projectedY].description.equals("nothing"))) {
-            if (this.mainWorld.player.current.description.equals("coin")) {
+                !(this.mainWorld.world[projectedX][projectedY].description().equals("nothing"))) {
+            if (this.mainWorld.player.current.description().equals("coin")) {
                 this.mainWorld.world[this.mainWorld.player.xPos][this.mainWorld.player.yPos]
                         = Tileset.FLOOR;
             } else {
@@ -319,7 +319,7 @@ public class Game implements Serializable {
         TETile[][] worldTiles = world.world;
         Player p = world.player;
 
-        if (world.player.current.description.equals("warp")) {
+        if (world.player.current.description().equals("warp")) {
 
             //Identify which Warp the Player is in
             Warp oldWarp = whichWarpIn(p);
@@ -403,7 +403,7 @@ public class Game implements Serializable {
         int x = (int) StdDraw.mouseX(); //Casting rounds down
         int y = (int) StdDraw.mouseY();
         if (y < HEIGHT) {
-            String type = myWorld.world[x][y].description;
+            String type = myWorld.world[x][y].description();
             return type;
         } else {
             return "None";

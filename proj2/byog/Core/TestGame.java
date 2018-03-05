@@ -38,9 +38,9 @@ public class TestGame {
 
     public static void main(String[] args) {
         //playWithInputStringTest2();
-        playWithInputStringTest();
+        //playWithInputStringTest();
         //* drawStartFrameTest();
-        //startScreenTest();
+        startScreenTest();
         //playWithKeyboardInputTest();
     }
 }

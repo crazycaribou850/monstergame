@@ -28,7 +28,7 @@ public class TETile implements Serializable {
     private final Color backgroundColor;
     private final String filepath;
 
-    public String description; // Made public and mutable for HUD
+    String description; // Made public and mutable for HUD
 
     /**
      * Full constructor for TETile objects.
@@ -204,4 +204,5 @@ public class TETile implements Serializable {
 
         return copy;
     }
+
 }
