@@ -486,13 +486,14 @@ public class Game implements Serializable {
             long seedi = Long.parseLong(Character.toString(input.charAt(1)));
             int i = 2;
             while (input.charAt(i) != 's') {
-                seedi = 10 * seed + Long.parseLong(Character.toString(input.charAt(i)));
+                seedi = 10 * seedi + Long.parseLong(Character.toString(input.charAt(i)));
                 i++;
             }
             i++;
             this.seed = (int) seedi;
             this.mainWorld = new World(WIDTH, this.seed);
             this.initializeGame();
+            System.out.println(this.seed);
             TETile[][] worldFrame = this.mainWorld.world;
             for (int n = i; n < input.length(); n++) {
                 char key = input.charAt(n);
