@@ -28,7 +28,7 @@ public class TETile implements Serializable {
     private final Color backgroundColor;
     private final String filepath;
 
-    String description; // Made public and mutable for HUD
+    String description; // Made package private and mutable
 
     /**
      * Full constructor for TETile objects.
