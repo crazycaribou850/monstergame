@@ -4,7 +4,7 @@ import byog.TileEngine.*;
 public class TestGame {
     public static void playWithInputStringTest() {
         Game newgame = new Game();
-        TETile[][] world = newgame.playWithInputString("N1219s");
+        TETile[][] world = newgame.playWithInputString("N1219swdwd");
         newgame.ter.initialize(newgame.WIDTH, newgame.HEIGHT + 4);
         newgame.ter.renderFrame(world);
         //newgame.ter.renderFrame(newgame.playWithInputString("N999s"));
@@ -35,9 +35,10 @@ public class TestGame {
         newgame.playWithKeyboard();
     }
     public static void main(String[] args) {
-        //playWithInputStringTest2(); // Works swell.
-        //* drawStartFrameTest(); //Works swell
+        //playWithInputStringTest2();
+        playWithInputStringTest();
+        //* drawStartFrameTest();
         //startScreenTest();
-        playWithKeyboardInputTest();
+        //playWithKeyboardInputTest();
     }
 }

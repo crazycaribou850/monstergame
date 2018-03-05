@@ -404,7 +404,7 @@ public class Game implements Serializable{
 
     /************************ Save and Load **********************/
     private static void saveGame(Game g) {
-        File f = new File("./game.ser");
+        File f = new File("./game.txt");
         try {
             if (!f.exists()) {
                 f.createNewFile();
@@ -423,7 +423,7 @@ public class Game implements Serializable{
     }
 
     private static Game loadGame() {
-        File f = new File("./game.ser");
+        File f = new File("./game.txt");
         if (f.exists()) {
             try {
                 FileInputStream fs = new FileInputStream(f);
