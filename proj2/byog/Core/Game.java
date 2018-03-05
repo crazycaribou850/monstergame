@@ -100,12 +100,13 @@ public class Game implements Serializable {
         Font normalFont = new Font("Monaco", Font.BOLD, 20);
         StdDraw.setFont(normalFont);
         StdDraw.setPenColor(Color.green);
-        StdDraw.text(midWidth, midHeight * (1.5), "CONGRATS!");
+        StdDraw.text(midWidth, midHeight * (1.4), "CONGRATS!");
         StdDraw.text(midWidth, midHeight * (1.3), "YOU ARE MASTER OF NONVIOLENCE!");
         StdDraw.setFont(bigFont);
         StdDraw.setPenColor(Color.red);
         StdDraw.text(midWidth, midHeight, "♥");
         StdDraw.setPenColor(Color.green);
+        StdDraw.setFont(normalFont);
         StdDraw.text(midWidth, midHeight*0.7, "Ghandi would be proud :')");
         StdDraw.show();
     }
