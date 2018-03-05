@@ -158,13 +158,13 @@ public class Game implements Serializable{
         p.insertPlayer(mainWorld);
         this.mainWorld.player = p;
 
+        new Warp(mainWorld, "w1");
+        new Warp(mainWorld, "w2",HEIGHT / 2);
+
         for (int i = 0; i < this.mainWorld.coins.length; i++) {
             this.mainWorld.coins[i] = new Coin();
             this.mainWorld.coins[i].insertCoin(mainWorld);
         }
-
-        new Warp(mainWorld, "w1");
-        new Warp(mainWorld, "w2",HEIGHT / 2);
 
         for (int i = 0; i < this.mainWorld.monsters.length; i++) {
             this.mainWorld.monsters[i] = new Monster(mainWorld.random.nextInt(5), this);

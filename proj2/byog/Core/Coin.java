@@ -22,7 +22,7 @@ public class Coin implements Serializable{
             int randX = RandomUtils.uniform(rand, 0, world[0].length);
             int randY = RandomUtils.uniform(rand, 0, world[0].length);
 
-            if (world[randX][randY] != Tileset.WALL && world[randX][randY] != Tileset.NOTHING) {
+            if (world[randX][randY].description == "floor") {
                 this.current = world[randX][randY];
                 world[randX][randY] = type;
                 xPos = randX;
