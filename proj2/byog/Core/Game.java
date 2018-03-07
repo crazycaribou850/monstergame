@@ -24,7 +24,7 @@ public class Game implements Serializable {
     boolean gameOver = false;
     int midWidth = WIDTH / 2;
     int midHeight = HEIGHT / 2;
-    int seed;
+    long seed;
     int colon = 0;
     World mainWorld;
 
@@ -146,7 +146,7 @@ public class Game implements Serializable {
     }
 
     // Frame that requests a seed from the user //
-    public int requestSeed() {
+    public long requestSeed() {
         StdDraw.clear(Color.BLACK);
         String dispString = "Seed: ";
         Font bigFont = new Font("Monaco", Font.BOLD, 40);
@@ -169,7 +169,7 @@ public class Game implements Serializable {
                 StdDraw.text(midWidth, midHeight - 3, "Enter a seed# and press s to start");
                 StdDraw.show();
             } else if (key == 's' || key == 'S') {
-                return Integer.parseInt(userNumber);
+                return Long.parseLong(userNumber);
             }
         }
     }
@@ -306,9 +306,10 @@ public class Game implements Serializable {
             colon += 2;
         } else if (key == 'j' || key == 'J') {
             if (this.mainWorld.player.bombs > 0) {
+                monsterMotion();
                 this.mainWorld.player.playerAttack();
                 playerAttackAnimation();
-                monsterMotion();
+
             }
         }
 
